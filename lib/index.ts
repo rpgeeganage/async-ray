@@ -1,7 +1,7 @@
 import { Handler } from './handler/handler';
 
-function getAsyncArray(input: Handler | []): Handler {
+function getAsyncRay(input: Handler | []): Handler {
   return new Handler(input);
 }
 
-export { getAsyncArray as AsyncArray };
+export { getAsyncRay as AsyncRay };

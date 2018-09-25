@@ -1,10 +1,10 @@
 const should = require('should');
-const { AsyncArray } = require('../dist/');
+const { AsyncRay } = require('../dist/');
 
 async function dummy(ele) {
   return ele;
 }
-describe('AsyncArray', () => {
+describe('AsyncRay', () => {
   let inputArray = null;
   before(() => {
     inputArray = [1, 2, 3, 4];
@@ -12,26 +12,26 @@ describe('AsyncArray', () => {
 
   it('should throws error for none array', async () => {
     should(() => {
-      AsyncArray('sting');
+      AsyncRay('sting');
     }).throw('Invalid input');
   });
 
   it('should assign the array value properly', () => {
     const inputArray = [1, 2, 3];
-    should(AsyncArray(AsyncArray(inputArray)).value).containDeepOrdered(
+    should(AsyncRay(AsyncRay(inputArray)).value).containDeepOrdered(
       inputArray
     );
   });
 
   it('should convert to string', () => {
     const inputArray = [1, 2, 3];
-    should(AsyncArray(inputArray).toString()).eql(inputArray.toString());
+    should(AsyncRay(inputArray).toString()).eql(inputArray.toString());
   });
 
   it('should pass only an async cb function', async () => {
     const inputArray = [1, 2, 3];
     try {
-      await AsyncArray(inputArray).map(() => {});
+      await AsyncRay(inputArray).map(() => {});
       throw new Error('should not execute');
     } catch (err) {
       should(err.message).eql('Callback is not an async method');
@@ -40,6 +40,6 @@ describe('AsyncArray', () => {
 
   it('should value contains the original array', async () => {
     const inputArray = [1, 2, 3];
-    should(AsyncArray(inputArray).value).containDeepOrdered(inputArray);
+    should(AsyncRay(inputArray).value).containDeepOrdered(inputArray);
   });
 });

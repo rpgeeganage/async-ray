@@ -1,10 +1,10 @@
 const should = require('should');
-const { AsyncArray } = require('../dist/');
+const { AsyncRay } = require('../dist/');
 
 async function dummy(condition) {
   return condition;
 }
-describe('AsyncArray', () => {
+describe('AsyncRay', () => {
   let inputArray = null;
   before(() => {
     inputArray = [1, 2, 3, 4];
@@ -12,7 +12,7 @@ describe('AsyncArray', () => {
 
   describe('find', () => {
     it('should find', async () => {
-      const outputElement = await AsyncArray(inputArray).find(
+      const outputElement = await AsyncRay(inputArray).find(
         async (i, index, collection) => {
           should(collection).instanceOf(Array);
           should(i).be.number;
@@ -26,7 +26,7 @@ describe('AsyncArray', () => {
     });
 
     it('should not find', async () => {
-      const outputElement = await AsyncArray(inputArray).find(
+      const outputElement = await AsyncRay(inputArray).find(
         async (i, index, collection) => {
           should(collection).instanceOf(Array);
           should(i).be.number;

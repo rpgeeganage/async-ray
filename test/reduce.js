@@ -1,10 +1,10 @@
 const should = require('should');
-const { AsyncArray } = require('../dist/');
+const { AsyncRay } = require('../dist/');
 
 async function dummy(input) {
   return input;
 }
-describe('AsyncArray', () => {
+describe('AsyncRay', () => {
   let inputArray = null;
   before(() => {
     inputArray = [10, 20, 30, 40];
@@ -12,7 +12,7 @@ describe('AsyncArray', () => {
 
   describe('reduce', () => {
     it('should return reduce values', async () => {
-      const outputElement = await AsyncArray(inputArray).reduce(
+      const outputElement = await AsyncRay(inputArray).reduce(
         1,
         async (acc, i, index, collection) => {
           should(collection).instanceOf(Array);
@@ -28,7 +28,7 @@ describe('AsyncArray', () => {
 
     it('should throw an error if initial value is not defined', async () => {
       try {
-        await AsyncArray(inputArray).reduce(
+        await AsyncRay(inputArray).reduce(
           undefined,
           async (acc, i, index, collection) => {
             should(collection).instanceOf(Array);

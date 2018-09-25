@@ -1,17 +1,17 @@
 const should = require('should');
-const { AsyncArray } = require('../dist/');
+const { AsyncRay } = require('../dist/');
 
 async function dummy(condition) {
   return condition;
 }
-describe('AsyncArray', () => {
+describe('AsyncRay', () => {
   let inputArray = null;
   before(() => {
     inputArray = [1, 2, 3, 4];
   });
 
   it('filter', async () => {
-    const outputArray = await AsyncArray(inputArray).filter(
+    const outputArray = await AsyncRay(inputArray).filter(
       async (i, index, collection) => {
         should(collection).instanceOf(Array);
         should(i).be.number;

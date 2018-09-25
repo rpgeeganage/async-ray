@@ -1,10 +1,10 @@
 const should = require('should');
-const { AsyncArray } = require('../dist/');
+const { AsyncRay } = require('../dist/');
 
 async function dummy(input) {
   return input;
 }
-describe('AsyncArray', () => {
+describe('AsyncRay', () => {
   let inputArray = null;
   before(() => {
     inputArray = [1, 2, 3, 4];
@@ -12,7 +12,7 @@ describe('AsyncArray', () => {
 
   it('forEach', async () => {
     const outputArray = [];
-    await AsyncArray(inputArray).forEach(async (i, index, collection) => {
+    await AsyncRay(inputArray).forEach(async (i, index, collection) => {
       should(collection).instanceOf(Array);
       should(i).be.number;
       should(collection[index]).eql(i);
