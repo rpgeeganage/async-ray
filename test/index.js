@@ -18,9 +18,7 @@ describe('AsyncRay', () => {
 
   it('should assign the array value properly', () => {
     const inputArray = [1, 2, 3];
-    should(AsyncRay(AsyncRay(inputArray)).value).containDeepOrdered(
-      inputArray
-    );
+    should(AsyncRay(AsyncRay(inputArray)).value).containDeepOrdered(inputArray);
   });
 
   it('should convert to string', () => {
