@@ -3,6 +3,7 @@
   "description": "Allow perform filter, find, forEach, map and reduce on array using Async callback",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "version": "0.0.1",
   "scripts": {
     "pretest": "npm run build",
     "test": "nyc mocha --recursive",
@@ -33,5 +34,12 @@
     "type": "git",
     "url": "git://github.com/rpgeeganage/async-array.git"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "keywords": [
+    "Array",
+    "Async/Await",
+    "async/await",
+    "array",
+    "ES2017"
+  ]
 }
