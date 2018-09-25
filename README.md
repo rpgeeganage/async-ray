@@ -48,7 +48,7 @@ const filterArray = await AsyncRay(inputArray).filter(
 );
 ```
 
-- Please call `.value` property to extract result as array
+- Please call `.value` property to extract the result as an array
 
 ```js
 async function dummy(element, needle) {
@@ -108,7 +108,7 @@ const mappedArray = await AsyncRay(inputArray).map(
 );
 ```
 
-- Please call `.value` property to extract result as array
+- Please call `.value` property to extract the result as an array
 
 ```js
 async function dummy(element) {
