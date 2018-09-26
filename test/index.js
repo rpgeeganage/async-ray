@@ -2,7 +2,7 @@ const should = require('should');
 const { AsyncRay } = require('../dist/');
 
 async function dummy(ele) {
-  return ele;
+  return Promise.resolve(ele);
 }
 describe('AsyncRay', () => {
   let inputArray = null;
