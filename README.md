@@ -14,8 +14,10 @@ Find will return the found value or undefined
 
 ```js
 async function dummy(element, needle) {
-  return element === needle;
+  return Promise.resolve(element === needle);
 }
+
+const inputArray = [1, 2, 3, 4];
 
 // Call Find method
 const outputElement = await AsyncRay(inputArray).find(
@@ -34,7 +36,7 @@ console.log('Output is ', outputElement);
 
 ```js
 async function dummy(element, needle) {
-  return element > needle;
+  return Promise.resolve(element > needle);
 }
 
 const inputArray = [1, 2, 3, 4];
@@ -52,8 +54,10 @@ const filterArray = await AsyncRay(inputArray).filter(
 
 ```js
 async function dummy(element, needle) {
-  return element > needle;
+  return Promise.resolve(element > needle);
 }
+
+const inputArray = [1, 2, 3, 4];
 
 // Call filter method
 const filterArray = await AsyncRay(inputArray).filter(
@@ -73,7 +77,7 @@ ForEach will work as **_Array.forEach_**.
 
 ```js
 async function dummy(element) {
-  return element === needle;
+  return Promise.resolve(element === needle);
 }
 
 const inputArray = [1, 2, 3, 4];
@@ -94,7 +98,7 @@ console.log('Output is ', outputArray);
 
 ```js
 async function dummy(element) {
-  return element;
+  return Promise.resolve(element);
 }
 
 const inputArray = [1, 2, 3, 4];
@@ -112,8 +116,10 @@ const mappedArray = await AsyncRay(inputArray).map(
 
 ```js
 async function dummy(element) {
-  return element;
+  return Promise.resolve(element);
 }
+
+const inputArray = [1, 2, 3, 4];
 
 // Call Map method
 const mappedArray = await AsyncRay(inputArray).map(
@@ -132,7 +138,7 @@ Reduce will work same as **_Array.reduce_**.
 
 ```js
 async function dummy(element, needle) {
-  return element === needle;
+  return Promise.resolve(element === needle);
 }
 
 const inputArray = [10, 20, 30, 40];
@@ -157,8 +163,11 @@ You can chain methods. Only `.filter` and `.map` can be changed (Those particula
 
 ```js
 async function dummy(ele) {
-  return ele;
+  return Promise.resolve(ele);
 }
+
+const inputArray = [1, 2, 3, 4];
+
 const chainedValue = await (await AsyncRay(inputArray).map(
   async (ele) => await dummy(ele * 10)
 )).reduce(1, async (acc, ele) => acc + (await dummy(ele)));
@@ -171,8 +180,11 @@ console.log('Output is ', chainedValue);
 
 ```js
 async function dummy(ele) {
-  return ele;
+  return Promise.resolve(ele);
 }
+
+const inputArray = [1, 2, 3, 4];
+
 const chainedValue = await (await AsyncRay(inputArray).map(
   async (ele) => await dummy(ele * 10)
 )).find(async (ele) => ele === 20);
@@ -184,6 +196,12 @@ console.log('Output is ', chainedValue);
 ##### sample 3 - `map` and `find`
 
 ```js
+async function dummy(ele) {
+  return Promise.resolve(ele);
+}
+
+const inputArray = [1, 2, 3, 4];
+
 const chainedValue = (await (await AsyncRay(inputArray).map(
   async (ele) => await dummy(ele * 10)
 )).filter(async (ele) => ele > 20)).value;
