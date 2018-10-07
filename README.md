@@ -129,7 +129,7 @@ AsyncRay([1,2,3]).aMap(...).aReduce(...)
 
 But `.aFilter`, `.aFind`, `.aForEach`, `.aMap` and `aReduce` can be chained with other [Array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#).
 
-#### sample 1 - `aMap` and `reduce`
+#### sample 1 - `aMap` and `filter`
 
 ```js
 async function dummy(ele) {
@@ -140,10 +140,10 @@ const inputArray = [1, 2, 3, 4];
 
 const chainedValue = (await AsyncRay(inputArray).aMap(
   async (ele) => await dummy(ele * 10)
-)).reduce((acc, ele) => acc + ele), 1);
+)).filter((ele) => ele > 20);
 
 console.log('Output is ', chainedValue);
-// Output is 101
+// Output is [30, 40]
 ```
 
 #### sample 2 - `aMap` and `find`
@@ -163,7 +163,7 @@ console.log('Output is ', chainedValue);
 // Output is 20
 ```
 
-#### sample 3 - `aMap` and `find`
+#### sample 3 - `aMap` and `reduce`
 
 ```js
 async function dummy(ele) {
@@ -174,8 +174,8 @@ const inputArray = [1, 2, 3, 4];
 
 const chainedValue = (await AsyncRay(inputArray).aMap(
   async (ele) => await dummy(ele * 10)
-)).filter((ele) => ele > 20);
+)).reduce((acc, ele) => acc + ele), 1);
 
 console.log('Output is ', chainedValue);
-// Output is [30, 40]
+// Output is 101
 ```
