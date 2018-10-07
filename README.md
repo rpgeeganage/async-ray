@@ -140,7 +140,7 @@ const inputArray = [1, 2, 3, 4];
 
 const chainedValue = await (await AsyncRay(inputArray).aMap(
   async (ele) => await dummy(ele * 10)
-)).reduce((acc, ele) => acc + (await dummy(ele)), 1);
+)).reduce((acc, ele) => acc + ele), 1);
 
 console.log('Output is ', chainedValue);
 // Output is 101
