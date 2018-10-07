@@ -8,7 +8,8 @@ Purpose of this package is to provide `async/await` callbacks for`filter`, `find
 const { AsyncRay } = require('async-ray');
 ```
 
-### ****.aFilter****<small>(async callback(element[, index[, array]]))</small>
+### ****.aFilter****
+##### .aFilter(async callback(element[, index[, array]]))
 
 ```js
 async function dummy(element, needle) {
@@ -29,7 +30,8 @@ console.log(filterArray);
 // Output is [3, 4]
 ```
 
-### ****.aFind**** <small>(async callback(element[, index[, array]]))</small>
+### ****.aFind****
+##### .aFind(async callback(element[, index[, array]]))
 
 Find will return the found value or undefined
 
@@ -51,7 +53,8 @@ console.log('Output is ', outputElement);
 // Output is 2
 ```
 
-### ****.aForEach****<small>(async callback(element[, index[, array]]))</small>
+### ****.aForEach****
+##### .aForEach(async callback(element[, index[, array]]))
 
 ```js
 async function dummy(element) {
@@ -70,7 +73,8 @@ console.log('Output is ', outputArray);
 // Output is [1, 2, 3, 4]
 ```
 
-### ****.aMap****<small>(async callback(element[, index[, array]]))</small>
+### ****.aMap****
+##### .aMap(async callback(element[, index[, array]]))
 
 ```js
 async function dummy(element) {
@@ -90,7 +94,8 @@ console.log(mappedArray);
 // Output is [1, 2, 3, 4]
 ```
 
-### ****.aReduce****<small>(async callback(accumulator, element[, index[, array]]), [initialValueOptional])</small>
+### ****.aReduce****
+##### .aReduce(async callback(accumulator, element[, index[, array]]), [initialValueOptional])
 
 ```js
 async function dummy(element, needle) {
