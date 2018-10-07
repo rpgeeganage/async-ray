@@ -7,6 +7,7 @@
   "scripts": {
     "pretest": "npm run build",
     "test": "nyc mocha --recursive",
+    "test-ts": "nyc mocha -r ts-node/register test/*.ts",
     "build": "tsc",
     "format": "prettier --write \"**/*.ts\" \"**/*.js\"",
     "lint": "tslint -p tsconfig.json",
@@ -19,6 +20,7 @@
   "author": "Ruwan Geeganage",
   "license": "MIT",
   "devDependencies": {
+    "@types/mocha": "^5.2.5",
     "mocha": "^5.2.0",
     "nyc": "^13.0.1",
     "prettier": "^1.14.3",
