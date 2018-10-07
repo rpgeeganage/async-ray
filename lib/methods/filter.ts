@@ -6,17 +6,6 @@ export type CallBackFilter<T> = (
 ) => Promise<boolean>;
 
 /**
- * Interface for Async Filter
- *
- * @export
- * @interface Filter
- * @template T
- */
-export interface Filter<T> {
-  filter(cb: CallBackFilter<T>): Promise<T[]>;
-}
-
-/**
  * Async Filter function
  *
  * @export
@@ -30,11 +19,13 @@ export async function filter<T>(
   cb: CallBackFilter<T>
 ): Promise<T[]> {
   const filteredResults: T[] = [];
+  console.log(elements, elements.entries());
   for (const [index, element] of elements.entries()) {
     if (await cb(element, index, elements)) {
       filteredResults.push(element);
     }
   }
 
+  console.log(filteredResults);
   return filteredResults;
 }

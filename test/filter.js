@@ -11,8 +11,9 @@ describe('AsyncRay', () => {
   });
 
   it('filter', async () => {
-    const outputArray = await AsyncRay(inputArray).filter(
+    const outputArray = await AsyncRay(inputArray).aFilter(
       async (i, index, collection) => {
+        console.log('eeeeeee')
         should(collection).instanceOf(Array);
         should(i).be.number;
         should(collection[index]).eql(i);
@@ -21,6 +22,6 @@ describe('AsyncRay', () => {
       }
     );
 
-    should(outputArray.toJSON()).containDeepOrdered([2, 3, 4]);
+    should(outputArray).containDeepOrdered([2, 3, 4]);
   });
 });

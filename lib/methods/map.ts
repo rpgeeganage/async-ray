@@ -1,20 +1,9 @@
 /** returns any type values */
-export type CallBackMap<T> = (
+export type CallBackMap<T, R> = (
   value: T,
   index?: number,
   collection?: T[]
-) => Promise<any[]>;
-
-/**
- * Interface for Async Map
- *
- * @export
- * @interface Map
- * @template T
- */
-export interface Map<T> {
-  map(cb: CallBackMap<T>): Promise<any[]>;
-}
+) => Promise<R>;
 
 /**
  * Async Map function
@@ -25,11 +14,11 @@ export interface Map<T> {
  * @param {CallBackMap<T>} cb
  * @returns {Promise<any[]>}
  */
-export async function map<T>(
+export async function map<T, R>(
   elements: T[],
-  cb: CallBackMap<T>
-): Promise<any[]> {
-  const mappedResults: any[] = [];
+  cb: CallBackMap<T, R>
+): Promise<R[]> {
+  const mappedResults: R[] = [];
   for (const [index, element] of elements.entries()) {
     const mappedResult = await cb(element, index, elements);
     mappedResults.push(mappedResult);

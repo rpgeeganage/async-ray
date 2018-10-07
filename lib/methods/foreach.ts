@@ -6,17 +6,6 @@ export type CallBackForEach<T> = (
 ) => Promise<void>;
 
 /**
- * Interface for Async ForEach
- *
- * @export
- * @interface ForEach
- * @template T
- */
-export interface ForEach<T> {
-  forEach(cb: CallBackForEach<T>): Promise<void>;
-}
-
-/**
  * Async ForEach function
  *
  * @export

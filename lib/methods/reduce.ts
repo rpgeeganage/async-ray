@@ -1,20 +1,10 @@
 /** returns any type value */
-export type CallBackReduce<T> = (
+export type CallBackReduce<T, R> = (
+  accumulator: R,
   value: T,
   index?: number,
   collection?: T[]
-) => Promise<any>;
-
-/**
- * Interface for Async Reduce functionality
- *
- * @export
- * @interface Reduce
- * @template T
- */
-export interface Reduce<T> {
-  reduce(cb: CallBackReduce<T>): Promise<any>;
-}
+) => Promise<R>;
 
 /**
  * Async Reduce function
@@ -24,17 +14,17 @@ export interface Reduce<T> {
  * @template R
  * @param {*} initialValue
  * @param {T[]} elements
- * @param {CallBackReduce<T>} cb
+ * @param {CallBackReduce<T, R>} cb
  * @returns {Promise<R>}
  */
-export async function reduce<T>(
-  initialValue: any,
+export async function reduce<T, R>(
   elements: T[],
-  cb: CallBackReduce<T>
-): Promise<any> {
-  let reducedValue: any = initialValue;
+  cb: CallBackReduce<T, R>,
+  initialValue?: R
+): Promise<R> {
+  let reducedValue: any;
   for (const [index, element] of elements.entries()) {
-    reducedValue = await cb(element, index, elements);
+    reducedValue = await cb(reducedValue, element, index, elements);
   }
 
   return reducedValue;

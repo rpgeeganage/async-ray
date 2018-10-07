@@ -6,17 +6,6 @@ export type CallBackFind<T> = (
 ) => Promise<T | undefined>;
 
 /**
- * Interface for Async Find
- *
- * @export
- * @interface Find
- * @template T
- */
-export interface Find<T> {
-  find(cb: CallBackFind<T>): Promise<T | undefined>;
-}
-
-/**
  * Async Find function
  *
  * @export
