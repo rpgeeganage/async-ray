@@ -1,9 +1,9 @@
-/** returns T or undefined */
+/** returns boolean */
 export type CallBackFind<T> = (
   value: T,
   index?: number,
   collection?: T[]
-) => Promise<T | undefined>;
+) => Promise<boolean>;
 
 /**
  * Async Find function
@@ -18,11 +18,9 @@ export async function find<T>(
   elements: T[],
   cb: CallBackFind<T>
 ): Promise<T | undefined> {
-  let foundItem: T | undefined;
   for (const [index, element] of elements.entries()) {
-    foundItem = await cb(element, index, elements);
-    if (foundItem !== undefined) {
-      return foundItem;
+    if (await cb(element, index, elements)) {
+      return element;
     }
   }
 

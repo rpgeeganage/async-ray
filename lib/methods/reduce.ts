@@ -22,7 +22,7 @@ export async function reduce<T, R>(
   cb: CallBackReduce<T, R>,
   initialValue?: R
 ): Promise<R> {
-  let reducedValue: any;
+  let reducedValue: any = initialValue;
   for (const [index, element] of elements.entries()) {
     reducedValue = await cb(reducedValue, element, index, elements);
   }
