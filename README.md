@@ -138,7 +138,7 @@ async function dummy(ele) {
 
 const inputArray = [1, 2, 3, 4];
 
-const chainedValue = await (await AsyncRay(inputArray).aMap(
+const chainedValue = (await AsyncRay(inputArray).aMap(
   async (ele) => await dummy(ele * 10)
 )).reduce((acc, ele) => acc + ele), 1);
 
@@ -155,7 +155,7 @@ async function dummy(ele) {
 
 const inputArray = [1, 2, 3, 4];
 
-const chainedValue = await (await AsyncRay(inputArray).aMap(
+const chainedValue = (await AsyncRay(inputArray).aMap(
   async (ele) => await dummy(ele * 10)
 )).find((ele) => ele === 20);
 
@@ -172,9 +172,9 @@ async function dummy(ele) {
 
 const inputArray = [1, 2, 3, 4];
 
-const chainedValue = (await (await AsyncRay(inputArray).aMap(
+const chainedValue = (await AsyncRay(inputArray).aMap(
   async (ele) => await dummy(ele * 10)
-)).filter((ele) => ele > 20)).value;
+)).filter((ele) => ele > 20);
 
 console.log('Output is ', chainedValue);
 // Output is [30, 40]
