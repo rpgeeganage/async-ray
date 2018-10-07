@@ -90,7 +90,7 @@ console.log(mappedArray);
 // Output is [1, 2, 3, 4]
 ```
 
-### .reduce
+### .aReduce
 
 ```js
 async function dummy(element, needle) {
