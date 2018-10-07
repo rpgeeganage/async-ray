@@ -6,8 +6,7 @@
   "version": "1.0.1",
   "scripts": {
     "pretest": "npm run build",
-    "test": "nyc mocha --recursive",
-    "test-ts": "mocha -r ts-node/register test/*.ts",
+    "test": "mocha -r ts-node/register test/*.ts",
     "build": "tsc",
     "format": "prettier --write \"**/*.ts\" \"**/*.js\"",
     "lint": "tslint -p tsconfig.json",
