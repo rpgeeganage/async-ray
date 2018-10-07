@@ -1,6 +1,6 @@
 # Async-Ray
 
-Purpose of this package is to provide `async/await` callbacks for `find`, `filter`, `forEach`, `map`, `reduce` methods in **_Array_**.
+Purpose of this package is to provide `async/await` callbacks for`filter`, `find`,  `forEach`, `map`, `reduce` methods in **_Array_**.
 
 ## Basic usage
 
@@ -8,7 +8,28 @@ Purpose of this package is to provide `async/await` callbacks for `find`, `filte
 const { AsyncRay } = require('async-ray');
 ```
 
-### .aFind
+### ****.aFilter****<small>(async callback(element[, index[, array]]))</small>
+
+```js
+async function dummy(element, needle) {
+  return Promise.resolve(element > needle);
+}
+
+const inputArray = [1, 2, 3, 4];
+
+// Call filter method
+const filterArray = await AsyncRay(inputArray).aFilter(
+  async (i, index, collection) => {
+    // Dummy async function
+    return await dummy(i, 2);
+  }
+);
+
+console.log(filterArray);
+// Output is [3, 4]
+```
+
+### ****.aFind**** <small>(async callback(element[, index[, array]]))</small>
 
 Find will return the found value or undefined
 
@@ -30,28 +51,7 @@ console.log('Output is ', outputElement);
 // Output is 2
 ```
 
-### .aFilter
-
-```js
-async function dummy(element, needle) {
-  return Promise.resolve(element > needle);
-}
-
-const inputArray = [1, 2, 3, 4];
-
-// Call filter method
-const filterArray = await AsyncRay(inputArray).aFilter(
-  async (i, index, collection) => {
-    // Dummy async function
-    return await dummy(i, 2);
-  }
-);
-
-console.log(filterArray);
-// Output is [3, 4]
-```
-
-### .aForEach
+### ****.aForEach****<small>(async callback(element[, index[, array]]))</small>
 
 ```js
 async function dummy(element) {
@@ -70,7 +70,7 @@ console.log('Output is ', outputArray);
 // Output is [1, 2, 3, 4]
 ```
 
-### .aMap
+### ****.aMap****<small>(async callback(element[, index[, array]]))</small>
 
 ```js
 async function dummy(element) {
@@ -90,7 +90,7 @@ console.log(mappedArray);
 // Output is [1, 2, 3, 4]
 ```
 
-### .aReduce
+### ****.aReduce****<small>(async callback(accumulator, element[, index[, array]]), [initialValueOptional])</small>
 
 ```js
 async function dummy(element, needle) {
@@ -101,10 +101,10 @@ const inputArray = [10, 20, 30, 40];
 
 // Call reduce method
 const output = await AsyncRay(inputArray).aReduce(
-  1,
   async (acc, i, index, collection) => {
     return acc + (await dummy(i));
-  }
+  },
+  1
 );
 
 console.log('Output is ', output);
@@ -135,7 +135,7 @@ const inputArray = [1, 2, 3, 4];
 
 const chainedValue = await (await AsyncRay(inputArray).aMap(
   async (ele) => await dummy(ele * 10)
-)).reduce(1, async (acc, ele) => acc + (await dummy(ele)));
+)).reduce((acc, ele) => acc + (await dummy(ele)), 1);
 
 console.log('Output is ', chainedValue);
 // Output is 101
@@ -152,7 +152,7 @@ const inputArray = [1, 2, 3, 4];
 
 const chainedValue = await (await AsyncRay(inputArray).aMap(
   async (ele) => await dummy(ele * 10)
-)).find(async (ele) => ele === 20);
+)).find((ele) => ele === 20);
 
 console.log('Output is ', chainedValue);
 // Output is 20
@@ -169,7 +169,7 @@ const inputArray = [1, 2, 3, 4];
 
 const chainedValue = (await (await AsyncRay(inputArray).aMap(
   async (ele) => await dummy(ele * 10)
-)).filter(async (ele) => ele > 20)).value;
+)).filter((ele) => ele > 20)).value;
 
 console.log('Output is ', chainedValue);
 // Output is [30, 40]
