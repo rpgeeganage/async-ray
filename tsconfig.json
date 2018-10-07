@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES2015",
+    "target": "es6",
     "module": "commonjs",
     "declaration": true,
     "sourceMap": true,
@@ -11,5 +11,5 @@
     "types": []
   },
   "include": ["lib"],
-  "exclude": ["node_modules", "**/__tests__/*"]
+  "exclude": ["node_modules", "test"]
 }

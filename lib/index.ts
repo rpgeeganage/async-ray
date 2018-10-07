@@ -1,7 +1,13 @@
-import { Handler } from './handler/handler';
+import { AsyncArray } from './async_ray';
 
-function getAsyncRay(input: Handler | []): Handler {
-  return new Handler(input);
+/**
+ * Get AsyncArray element
+ *
+ * @export
+ * @template T
+ * @param {...T[]} elements
+ * @returns
+ */
+export function AsyncRay<T>(elements: T[]) {
+  return new AsyncArray<T>(...elements);
 }
-
-export { getAsyncRay as AsyncRay };

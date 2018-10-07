@@ -3,10 +3,10 @@
   "description": "Allow perform filter, find, forEach, map and reduce on array using Async callback",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "scripts": {
     "pretest": "npm run build",
-    "test": "nyc mocha --recursive",
+    "test": "mocha -r ts-node/register test/*.ts",
     "build": "tsc",
     "format": "prettier --write \"**/*.ts\" \"**/*.js\"",
     "lint": "tslint -p tsconfig.json",
@@ -19,10 +19,11 @@
   "author": "Ruwan Geeganage",
   "license": "MIT",
   "devDependencies": {
+    "@types/mocha": "^5.2.5",
     "mocha": "^5.2.0",
-    "nyc": "^13.0.1",
     "prettier": "^1.14.3",
     "should": "^13.2.3",
+    "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
     "typescript": "^3.0.3"
