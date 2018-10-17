@@ -12,9 +12,9 @@ export type CallBackReduce<T, R> = (
  * @export
  * @template T
  * @template R
- * @param {*} initialValue
  * @param {T[]} elements
  * @param {CallBackReduce<T, R>} cb
+ * @param {R} [initialValue]
  * @returns {Promise<R>}
  */
 export async function reduce<T, R>(
