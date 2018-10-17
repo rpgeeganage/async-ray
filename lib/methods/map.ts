@@ -10,9 +10,10 @@ export type CallBackMap<T, R> = (
  *
  * @export
  * @template T
+ * @template R
  * @param {T[]} elements
- * @param {CallBackMap<T>} cb
- * @returns {Promise<any[]>}
+ * @param {CallBackMap<T, R>} cb
+ * @returns {Promise<R[]>}
  */
 export async function map<T, R>(
   elements: T[],

@@ -12,7 +12,7 @@ export type CallBackFind<T> = (
  * @template T
  * @param {T[]} elements
  * @param {CallBackFind<T>} cb
- * @returns {Promise<T[]>}
+ * @returns {(Promise<T | undefined>)}
  */
 export async function find<T>(
   elements: T[],
