@@ -18,7 +18,7 @@ async function dummy(element, needle) {
 
 const inputArray = [1, 2, 3, 4];
 
-// Call filter method
+// Call Filter method
 const filterArray = await AsyncRay(inputArray).aFilter(
   async (i, index, collection) => {
     // Dummy async function
@@ -104,7 +104,7 @@ async function dummy(element) {
 
 const inputArray = [10, 20, 30, 40];
 
-// Call reduce method
+// Call Reduce method
 const output = await AsyncRay(inputArray).aReduce(
   async (acc, i, index, collection) => {
     return acc + (await dummy(i));
