@@ -58,7 +58,7 @@ console.log('Output is ', outputElement);
 
 ```js
 async function dummy(element) {
-  return Promise.resolve(element === needle);
+  return Promise.resolve(element);
 }
 
 const inputArray = [1, 2, 3, 4];
@@ -98,8 +98,8 @@ console.log(mappedArray);
 ##### .aReduce(async callback(accumulator, element[, index[, array]]), [initialValueOptional])
 
 ```js
-async function dummy(element, needle) {
-  return Promise.resolve(element === needle);
+async function dummy(element) {
+  return Promise.resolve(element);
 }
 
 const inputArray = [10, 20, 30, 40];
