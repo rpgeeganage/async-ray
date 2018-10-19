@@ -1,6 +1,6 @@
 # Async-Ray
 
-Purpose of this package is to provide `async/await` callbacks for`filter`, `find`, `forEach`, `map`, `reduce` methods in **_Array_**.
+Purpose of this package is to provide `async/await` callbacks for `every`, `filter`, `find`, `forEach`, `map`, `reduce` and `some` methods in **_Array_**.
 
 ## Basic usage
 
