@@ -62,8 +62,8 @@
         "import-sources-order": "lowercase-last",
         "named-imports-order": "lowercase-last"
       }
-    ]
-  },
-  "no-magic-numbers": [true, -1, 0, 1, 2, 3],
-  "no-parameter-reassignment": true
+    ],
+    "no-parameter-reassignment": true,
+    "no-return-await": true
+  }
 }
