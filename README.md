@@ -1,6 +1,6 @@
 # Async-Ray
 
-Purpose of this package is to provide `async/await` callbacks for`filter`, `find`,  `forEach`, `map`, `reduce` methods in **_Array_**.
+Purpose of this package is to provide `async/await` callbacks for`filter`, `find`, `forEach`, `map`, `reduce` methods in **_Array_**.
 
 ## Basic usage
 
@@ -8,7 +8,31 @@ Purpose of this package is to provide `async/await` callbacks for`filter`, `find
 const { AsyncRay } = require('async-ray');
 ```
 
-### ****.aFilter****
+### .aEvery
+
+##### .aEvery(async callback(element[, index[, array]]))
+
+```js
+async function dummy(element, needle) {
+  return Promise.resolve(element > needle);
+}
+
+const inputArray = [10, 20, 30, 40];
+
+// Call Every method
+const output = await AsyncRay(inputArray).aEvery(
+  async (i, index, collection) => {
+    // Dummy async function
+    return await dummy(i, 5);
+  }
+);
+
+console.log(output);
+// Output is true
+```
+
+### .aFilter
+
 ##### .aFilter(async callback(element[, index[, array]]))
 
 ```js
@@ -30,7 +54,8 @@ console.log(filterArray);
 // Output is [3, 4]
 ```
 
-### ****.aFind****
+### .aFind
+
 ##### .aFind(async callback(element[, index[, array]]))
 
 Find will return the found value or undefined
@@ -53,7 +78,8 @@ console.log('Output is ', outputElement);
 // Output is 2
 ```
 
-### ****.aForEach****
+### .aForEach
+
 ##### .aForEach(async callback(element[, index[, array]]))
 
 ```js
@@ -73,7 +99,8 @@ console.log('Output is ', outputArray);
 // Output is [1, 2, 3, 4]
 ```
 
-### ****.aMap****
+### .aMap
+
 ##### .aMap(async callback(element[, index[, array]]))
 
 ```js
@@ -94,7 +121,8 @@ console.log(mappedArray);
 // Output is [1, 2, 3, 4]
 ```
 
-### ****.aReduce****
+### .aReduce
+
 ##### .aReduce(async callback(accumulator, element[, index[, array]]), [initialValueOptional])
 
 ```js
@@ -115,10 +143,32 @@ const output = await AsyncRay(inputArray).aReduce(
 console.log('Output is ', output);
 // Output is 101
 ```
+### .aSome
+
+##### .aSome(async callback(element[, index[, array]]))
+
+```js
+async function dummy(element, needle) {
+  return Promise.resolve(element > needle);
+}
+
+const inputArray = [10, 20, 30, 40];
+
+// Call Some method
+const output = await AsyncRay(inputArray).aSome(
+  async (i, index, collection) => {
+    // Dummy async function
+    return await dummy(i, 30);
+  }
+);
+
+console.log(output);
+// Output is true
+```
 
 ## Chaining methods
 
-### Please note that, `.aFilter`, `.aFind`, `.aForEach`, `.aMap` and `aReduce` cannot be chained with each other.
+### Please note that `.aEvery`, `.aFilter`, `.aFind`, `.aForEach`, `.aMap`, `aReduce` and  `.aSome` cannot be chained with each other.
 
 Eg:
 
@@ -127,7 +177,7 @@ Eg:
 AsyncRay([1,2,3]).aMap(...).aReduce(...)
 ```
 
-But `.aFilter`, `.aFind`, `.aForEach`, `.aMap` and `aReduce` can be chained with other [Array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#).
+But `.aEvery`, `.aFilter`, `.aFind`, `.aForEach`, `.aMap`, `aReduce` and  `.aSome` can be chained with other [Array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#).
 
 #### sample 1 - `aMap` and `filter`
 
