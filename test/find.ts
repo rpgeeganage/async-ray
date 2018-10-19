@@ -25,7 +25,7 @@ describe('AsyncRay', () => {
             .not.undefined();
           should(index).not.undefined();
 
-          return await dummy(i === 2);
+          return dummy(i === 2);
         }
       );
 
@@ -44,7 +44,7 @@ describe('AsyncRay', () => {
             .not.undefined();
           should(index).not.undefined();
 
-          return await dummy(i === 20);
+          return dummy(i === 20);
         }
       );
 

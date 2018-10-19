@@ -17,24 +17,24 @@ describe('Chaining', () => {
   });
 
   it('Chaining aMap() and map()', async () => {
-    const outputArray = (await AsyncRay(inputArray).aMap(
-      async (i) => await dummyAsync(i)
+    const outputArray = (await AsyncRay(inputArray).aMap(async (i) =>
+      dummyAsync(i)
     )).map(dummy);
 
     should(outputArray).containDeepOrdered([100, 200, 300, 400]);
   });
 
   it('Chaining aMap() and reduce()', async () => {
-    const output = (await AsyncRay(inputArray).aMap(
-      async (i) => await dummyAsync(i)
+    const output = (await AsyncRay(inputArray).aMap(async (i) =>
+      dummyAsync(i)
     )).reduce((acc, i) => acc + dummy(i), 100);
 
     should(output).eql(1100);
   });
 
   it('Chaining aMap() and find()', async () => {
-    const output = (await AsyncRay(inputArray).aMap(
-      async (i) => await dummyAsync(i)
+    const output = (await AsyncRay(inputArray).aMap(async (i) =>
+      dummyAsync(i)
     )).find((e) => e === 20);
 
     should(output).eql(20);

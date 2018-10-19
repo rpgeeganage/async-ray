@@ -24,7 +24,7 @@ describe('AsyncRay', () => {
             .Number();
           should(index).not.undefined();
 
-          return await dummy(i);
+          return dummy(i);
         }
       );
 

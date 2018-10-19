@@ -21,34 +21,46 @@ export class AsyncArray<T> extends Array<T> {
   }
 
   /**
+   * Async Every method
+   *
+   * @param {Methods.CallBackFilter<T>} cb
+   * @returns {Promise<boolean>}
+   * @memberof AsyncArray
+   */
+  async aEvery(cb: Methods.CallBackFilter<T>): Promise<boolean> {
+    return Methods.every<T>(this.input, cb);
+  }
+
+  /**
    * Async Filter method
    *
    * @param {Methods.CallBackFilter<T>} cb
-   * @returns
+   * @returns {Promise<T[]>}
    * @memberof AsyncArray
    */
-  async aFilter(cb: Methods.CallBackFilter<T>) {
-    return await Methods.filter<T>(this.input, cb);
+  async aFilter(cb: Methods.CallBackFilter<T>): Promise<T[]> {
+    return Methods.filter<T>(this.input, cb);
   }
 
   /**
    * Async find method
    *
    * @param {Methods.CallBackFind<T>} cb
-   * @returns
+   * @returns {(Promise<T | undefined>)}
    * @memberof AsyncArray
    */
-  async aFind(cb: Methods.CallBackFind<T>) {
-    return await Methods.find<T>(this.input, cb);
+  async aFind(cb: Methods.CallBackFind<T>): Promise<T | undefined> {
+    return Methods.find<T>(this.input, cb);
   }
 
   /**
    * Async ForEach method
    *
    * @param {Methods.CallBackForEach<T>} cb
+   * @returns {Promise<void>}
    * @memberof AsyncArray
    */
-  async aForEach(cb: Methods.CallBackForEach<T>) {
+  async aForEach(cb: Methods.CallBackForEach<T>): Promise<void> {
     await Methods.forEach<T>(this.input, cb);
   }
 
@@ -57,11 +69,11 @@ export class AsyncArray<T> extends Array<T> {
    *
    * @template R
    * @param {Methods.CallBackMap<T, R>} cb
-   * @returns
+   * @returns {Promise<R[]>}
    * @memberof AsyncArray
    */
-  async aMap<R>(cb: Methods.CallBackMap<T, R>) {
-    return await Methods.map<T, R>(this.input, cb);
+  async aMap<R>(cb: Methods.CallBackMap<T, R>): Promise<R[]> {
+    return Methods.map<T, R>(this.input, cb);
   }
 
   /**
@@ -69,11 +81,25 @@ export class AsyncArray<T> extends Array<T> {
    *
    * @template R
    * @param {Methods.CallBackReduce<T, R>} cb
-   * @param {*} [initialValue]
-   * @returns
+   * @param {R} [initialValue]
+   * @returns {Promise<R>}
    * @memberof AsyncArray
    */
-  async aReduce<R>(cb: Methods.CallBackReduce<T, R>, initialValue?: any) {
-    return await Methods.reduce(this.input, cb, initialValue);
+  async aReduce<R>(
+    cb: Methods.CallBackReduce<T, R>,
+    initialValue?: R
+  ): Promise<R> {
+    return Methods.reduce(this.input, cb, initialValue);
+  }
+
+  /**
+   * Async Some method
+   *
+   * @param {Methods.CallBackFilter<T>} cb
+   * @returns {Promise<boolean>}
+   * @memberof AsyncArray
+   */
+  async aSome(cb: Methods.CallBackFilter<T>): Promise<boolean> {
+    return Methods.some<T>(this.input, cb);
   }
 }
