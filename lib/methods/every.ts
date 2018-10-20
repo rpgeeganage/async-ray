@@ -18,10 +18,11 @@ export async function every<T>(
   elements: T[],
   cb: CallBackEvery<T>
 ): Promise<boolean> {
-  let returnValue = true;
   for (const [index, element] of elements.entries()) {
-    returnValue = returnValue && (await cb(element, index, elements));
+    if (!(await cb(element, index, elements))) {
+      return false;
+    }
   }
 
-  return returnValue;
+  return true;
 }
