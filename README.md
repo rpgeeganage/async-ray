@@ -2,6 +2,8 @@
 
 Purpose of this package is to provide `async/await` callbacks for `every`, `filter`, `find`, `forEach`, `map`, `reduce` and `some` methods in **_Array_**.
 
+### TypeScript Doc: [https://rpgeeganage.github.io/async-ray/doc/](https://rpgeeganage.github.io/async-ray/doc/)
+
 ## Basic usage
 
 ```js

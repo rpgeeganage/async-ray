@@ -14,7 +14,8 @@
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
     "version": "npm run format && git add -A lib",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags",
+    "doc-gen": "typedoc --out doc --theme minimal `find test -name '*.ts' -not -path '*test*' -not -path '*dist*'`"
   },
   "author": "Ruwan Geeganage",
   "license": "MIT",

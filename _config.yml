@@ -1,0 +1,4 @@
+theme: jekyll-theme-modernist
+include:
+  - '_*_.html'
+  - '_*_.*.html'
