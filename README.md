@@ -11,15 +11,15 @@ const { AsyncRay } = require('async-ray');
 ```
 
 ## Supported methods
-* ***.aEvery***
-* ***.aFilter***
-* ***.aFind***
-* ***.aFindIndex***
-* ***.aForEach***
-* ***.aMap***
-* ***.aReduce***
-* ***.aReduceRight***
-* ***.aSome***
+* [ ***.aEvery*** ](#aevery)
+* [ ***.aFilter*** ](#afilter)
+* [ ***.aFind*** ](#afind)
+* [ ***.aFindIndex*** ](#afindindex)
+* [ ***.aForEach*** ](#aforeach)
+* [ ***.aMap*** ](#amap)
+* [ ***.aReduce*** ](#areduce)
+* [ ***.aReduceRight*** ](#areduceright)
+* [ ***.aSome*** ](#asome)
 
 ## Methods
 ### .aEvery
