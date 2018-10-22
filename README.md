@@ -10,6 +10,18 @@ Purpose of this package is to provide `async/await` callbacks for `every`, `filt
 const { AsyncRay } = require('async-ray');
 ```
 
+## Supported methods
+* ***.aEvery***
+* ***.aFilter***
+* ***.aFind***
+* ***.aFindIndex***
+* ***.aForEach***
+* ***.aMap***
+* ***.aReduce***
+* ***.aReduceRight***
+* ***.aSome***
+
+## Methods
 ### .aEvery
 
 ##### .aEvery(async callback(element[, index[, array]]))
