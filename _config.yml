@@ -1,4 +1,4 @@
-theme: jekyll-theme-modernist
+theme: jekyll-theme-leap-day
 include:
   - '_*_.html'
   - '_*_.*.html'
