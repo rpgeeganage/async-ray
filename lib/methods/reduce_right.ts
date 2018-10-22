@@ -22,7 +22,7 @@ export async function reduceRight<T, R>(
   cb: CallBackReduceRight<T, R>,
   initialValue?: R
 ): Promise<T | R> {
-  if (!elements.length && !initialValue) {
+  if (!elements.length && initialValue === undefined) {
     throw new Error('Reduce of empty array with no initial value');
   }
 
