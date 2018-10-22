@@ -12,7 +12,7 @@ export type CallBackFindIndex<T> = (
  * @template T
  * @param {T[]} elements
  * @param {CallBackFind<T>} cb
- * @returns {(Promise<T | undefined>)}
+ * @returns {Promise<number>}
  */
 export async function findIndex<T>(
   elements: T[],
