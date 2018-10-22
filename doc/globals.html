@@ -915,9 +915,23 @@ img { max-width: 100%; }
 	<div class="content-wrap">
 		<div class="tsd-panel tsd-typography">
 			<h1 id="async-ray">Async-Ray</h1>
-			<p>Purpose of this package is to provide <code>async/await</code> callbacks for <code>every</code>, <code>filter</code>, <code>find</code>, <code>forEach</code>, <code>map</code>, <code>reduce</code> and <code>some</code> methods in <strong><em>Array</em></strong>.</p>
+			<p>Purpose of this package is to provide <code>async/await</code> callbacks for <code>every</code>, <code>filter</code>, <code>find</code>, <code>findIndex</code>, <code>forEach</code>, <code>map</code>, <code>reduce</code>, <code>reduceRight</code> and <code>some</code> methods in <strong><em>Array</em></strong>.</p>
+			<h3 id="typescript-doc-https-rpgeeganage-github-io-async-ray-doc-">TypeScript Doc: <a href="https://rpgeeganage.github.io/async-ray/doc/">https://rpgeeganage.github.io/async-ray/doc/</a></h3>
 			<h2 id="basic-usage">Basic usage</h2>
 			<pre><code class="language-js"><span class="hljs-keyword">const</span> { AsyncRay } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'async-ray'</span>);</code></pre>
+			<h2 id="supported-methods">Supported methods</h2>
+			<ul>
+				<li><a href="#aevery"> <strong><em>.aEvery</em></strong> </a></li>
+				<li><a href="#afilter"> <strong><em>.aFilter</em></strong> </a></li>
+				<li><a href="#afind"> <strong><em>.aFind</em></strong> </a></li>
+				<li><a href="#afindindex"> <strong><em>.aFindIndex</em></strong> </a></li>
+				<li><a href="#aforeach"> <strong><em>.aForEach</em></strong> </a></li>
+				<li><a href="#amap"> <strong><em>.aMap</em></strong> </a></li>
+				<li><a href="#areduce"> <strong><em>.aReduce</em></strong> </a></li>
+				<li><a href="#areduceright"> <strong><em>.aReduceRight</em></strong> </a></li>
+				<li><a href="#asome"> <strong><em>.aSome</em></strong> </a></li>
+			</ul>
+			<h2 id="methods">Methods</h2>
 			<h3 id="-aevery">.aEvery</h3>
 			<h5 id="-aevery-async-callback-element-index-array-">.aEvery(async callback(element[, index[, array]]))</h5>
 			<pre><code class="language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dummy</span>(<span class="hljs-params">element, needle</span>) </span>{
@@ -972,6 +986,24 @@ img { max-width: 100%; }
 
 <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Output is '</span>, outputElement);
 <span class="hljs-comment">// Output is 2</span></code></pre>
+			<h3 id="-afindindex">.aFindIndex</h3>
+			<h5 id="-afindindex-async-callback-element-index-array-">.aFindIndex(async callback(element[, index[, array]]))</h5>
+			<p>FindIndex will return the index of found value or -1</p>
+			<pre><code class="language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dummy</span>(<span class="hljs-params">element, needle</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(element === needle);
+}
+
+<span class="hljs-keyword">const</span> inputArray = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+
+<span class="hljs-comment">// Call Find method</span>
+<span class="hljs-keyword">const</span> outputIndex = <span class="hljs-keyword">await</span> AsyncRay(inputArray).aFindIndex(
+  <span class="hljs-keyword">async</span> (i, index, collection) =&gt; {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> dummy(i, <span class="hljs-number">2</span>);
+  }
+);
+
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Output is '</span>, outputIndex);
+<span class="hljs-comment">// Output is 1</span></code></pre>
 			<h3 id="-aforeach">.aForEach</h3>
 			<h5 id="-aforeach-async-callback-element-index-array-">.aForEach(async callback(element[, index[, array]]))</h5>
 			<pre><code class="language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dummy</span>(<span class="hljs-params">element</span>) </span>{
@@ -1006,7 +1038,7 @@ img { max-width: 100%; }
 <span class="hljs-built_in">console</span>.log(mappedArray);
 <span class="hljs-comment">// Output is [1, 2, 3, 4]</span></code></pre>
 			<h3 id="-areduce">.aReduce</h3>
-			<h5 id="-areduce-async-callback-accumulator-element-index-array-initialvalueoptional-">.aReduce(async callback(accumulator, element[, index[, array]]), [initialValueOptional])</h5>
+			<h5 id="-areduce-async-callback-accumulator-element-index-array-initialvalue-">.aReduce(async callback(accumulator, element[, index[, array]]), [initialValue])</h5>
 			<pre><code class="language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dummy</span>(<span class="hljs-params">element</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(element);
 }
@@ -1015,6 +1047,24 @@ img { max-width: 100%; }
 
 <span class="hljs-comment">// Call Reduce method</span>
 <span class="hljs-keyword">const</span> output = <span class="hljs-keyword">await</span> AsyncRay(inputArray).aReduce(
+  <span class="hljs-keyword">async</span> (acc, i, index, collection) =&gt; {
+    <span class="hljs-keyword">return</span> acc + (<span class="hljs-keyword">await</span> dummy(i));
+  },
+  <span class="hljs-number">1</span>
+);
+
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Output is '</span>, output);
+<span class="hljs-comment">// Output is 101</span></code></pre>
+			<h3 id="-areduceright">.aReduceRight</h3>
+			<h5 id="-areduceright-async-callback-accumulator-element-index-array-initialvalue-">.aReduceRight(async callback(accumulator, element[, index[, array]]), [initialValue])</h5>
+			<pre><code class="language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dummy</span>(<span class="hljs-params">element</span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(element);
+}
+
+<span class="hljs-keyword">const</span> inputArray = [<span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">30</span>, <span class="hljs-number">40</span>];
+
+<span class="hljs-comment">// Call Reduce method</span>
+<span class="hljs-keyword">const</span> output = <span class="hljs-keyword">await</span> AsyncRay(inputArray).aReduceRight(
   <span class="hljs-keyword">async</span> (acc, i, index, collection) =&gt; {
     <span class="hljs-keyword">return</span> acc + (<span class="hljs-keyword">await</span> dummy(i));
   },
@@ -1046,7 +1096,7 @@ img { max-width: 100%; }
 			<p>Eg:</p>
 			<pre><code class="language-js"><span class="hljs-comment">// Below code will throw an error</span>
 AsyncRay([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]).aMap(...).aReduce(...)</code></pre>
-			<p>But <code>.aEvery</code>, <code>.aFilter</code>, <code>.aFind</code>, <code>.aForEach</code>, <code>.aMap</code>, <code>aReduce</code> and  <code>.aSome</code> can be chained with other <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#">Array methods</a>.</p>
+			<p>But <code>.aEvery</code>, <code>.aFilter</code>, <code>.aFind</code>,<code>.aFindIndex</code>, <code>.aForEach</code>, <code>.aMap</code>, <code>aReduce</code>, <code>aReduceRight</code> and  <code>.aSome</code> can be chained with other <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#">Array methods</a>.</p>
 			<h4 id="sample-1-amap-and-filter">sample 1 - <code>aMap</code> and <code>filter</code></h4>
 			<pre><code class="language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dummy</span>(<span class="hljs-params">ele</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(ele);
@@ -1099,10 +1149,12 @@ AsyncRay([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,
 							<li class="tsd-kind-external-module"><a href="modules/_methods_every_.html" class="tsd-kind-icon">"methods/every"</a></li>
 							<li class="tsd-kind-external-module"><a href="modules/_methods_filter_.html" class="tsd-kind-icon">"methods/filter"</a></li>
 							<li class="tsd-kind-external-module"><a href="modules/_methods_find_.html" class="tsd-kind-icon">"methods/find"</a></li>
+							<li class="tsd-kind-external-module"><a href="modules/_methods_find_index_.html" class="tsd-kind-icon">"methods/find_<wbr>index"</a></li>
 							<li class="tsd-kind-external-module"><a href="modules/_methods_foreach_.html" class="tsd-kind-icon">"methods/foreach"</a></li>
 							<li class="tsd-kind-external-module"><a href="modules/_methods_index_.html" class="tsd-kind-icon">"methods/index"</a></li>
 							<li class="tsd-kind-external-module"><a href="modules/_methods_map_.html" class="tsd-kind-icon">"methods/map"</a></li>
 							<li class="tsd-kind-external-module"><a href="modules/_methods_reduce_.html" class="tsd-kind-icon">"methods/reduce"</a></li>
+							<li class="tsd-kind-external-module"><a href="modules/_methods_reduce_right_.html" class="tsd-kind-icon">"methods/reduce_<wbr>right"</a></li>
 							<li class="tsd-kind-external-module"><a href="modules/_methods_some_.html" class="tsd-kind-icon">"methods/some"</a></li>
 						</ul>
 					</section>
