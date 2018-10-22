@@ -1,6 +1,6 @@
 # Async-Ray
 
-Purpose of this package is to provide `async/await` callbacks for `every`, `filter`, `find`, `forEach`, `map`, `reduce` and `some` methods in **_Array_**.
+Purpose of this package is to provide `async/await` callbacks for `every`, `filter`, `find`, `findIndex`, `forEach`, `map`, `reduce`, `reduceRight` and `some` methods in **_Array_**.
 
 ### TypeScript Doc: [https://rpgeeganage.github.io/async-ray/doc/](https://rpgeeganage.github.io/async-ray/doc/)
 
@@ -79,6 +79,29 @@ const outputElement = await AsyncRay(inputArray).aFind(
 console.log('Output is ', outputElement);
 // Output is 2
 ```
+### .aFindIndex
+
+##### .aFindIndex(async callback(element[, index[, array]]))
+
+FindIndex will return the index of found value or -1
+
+```js
+async function dummy(element, needle) {
+  return Promise.resolve(element === needle);
+}
+
+const inputArray = [1, 2, 3, 4];
+
+// Call Find method
+const outputIndex = await AsyncRay(inputArray).aFindIndex(
+  async (i, index, collection) => {
+    return await dummy(i, 2);
+  }
+);
+
+console.log('Output is ', outputIndex);
+// Output is 1
+```
 
 ### .aForEach
 
@@ -125,7 +148,7 @@ console.log(mappedArray);
 
 ### .aReduce
 
-##### .aReduce(async callback(accumulator, element[, index[, array]]), [initialValueOptional])
+##### .aReduce(async callback(accumulator, element[, index[, array]]), [initialValue])
 
 ```js
 async function dummy(element) {
@@ -145,6 +168,29 @@ const output = await AsyncRay(inputArray).aReduce(
 console.log('Output is ', output);
 // Output is 101
 ```
+### .aReduceRight
+
+##### .aReduceRight(async callback(accumulator, element[, index[, array]]), [initialValue])
+
+```js
+async function dummy(element) {
+  return Promise.resolve(element);
+}
+
+const inputArray = [10, 20, 30, 40];
+
+// Call Reduce method
+const output = await AsyncRay(inputArray).aReduceRight(
+  async (acc, i, index, collection) => {
+    return acc + (await dummy(i));
+  },
+  1
+);
+
+console.log('Output is ', output);
+// Output is 101
+```
+
 ### .aSome
 
 ##### .aSome(async callback(element[, index[, array]]))
@@ -179,7 +225,7 @@ Eg:
 AsyncRay([1,2,3]).aMap(...).aReduce(...)
 ```
 
-But `.aEvery`, `.aFilter`, `.aFind`, `.aForEach`, `.aMap`, `aReduce` and  `.aSome` can be chained with other [Array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#).
+But `.aEvery`, `.aFilter`, `.aFind`,`.aFindIndex`, `.aForEach`, `.aMap`, `aReduce`, `aReduceRight` and  `.aSome` can be chained with other [Array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#).
 
 #### sample 1 - `aMap` and `filter`
 
