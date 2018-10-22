@@ -12,6 +12,12 @@ describe('AsyncRay', () => {
     inputArray = [1, 2, 3, 4];
   });
 
+  it('Should throw error if array is empty and initial value is not defined', async () => {
+    await AsyncRay([])
+      .aReduceRight<any>(async (i) => i)
+      .should.rejectedWith('Reduce of empty array with no initial value');
+  });
+
   describe('reduceRight', () => {
     describe('with initial value', () => {
       it('should return reduceRight values for number', async () => {

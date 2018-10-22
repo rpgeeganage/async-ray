@@ -27,8 +27,8 @@ export async function reduce<T, R>(
   }
 
   let reducedValue: T | R;
-
   const copiedElements = [...elements];
+
   if (initialValue === undefined) {
     reducedValue = copiedElements.shift() as T;
   } else {

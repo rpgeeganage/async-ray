@@ -27,8 +27,8 @@ export async function reduceRight<T, R>(
   }
 
   let reducedValue: T | R;
-
   const reversedElements = [...elements].reverse();
+
   if (initialValue === undefined) {
     reducedValue = reversedElements.shift() as T;
   } else {
