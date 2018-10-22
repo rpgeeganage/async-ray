@@ -1,10 +1,10 @@
 /** returns any type value */
 export type CallBackReduceRight<T, R> = (
-  accumulator: R,
+  accumulator: T | R,
   value: T,
   index?: number,
   collection?: T[]
-) => Promise<R>;
+) => Promise<T | R>;
 
 /**
  * Async ReduceRight function
@@ -15,16 +15,28 @@ export type CallBackReduceRight<T, R> = (
  * @param {T[]} elements
  * @param {CallBackReduceRight<T, R>} cb
  * @param {R} [initialValue]
- * @returns {Promise<R>}
+ * @returns {Promise<T | R>}
  */
 export async function reduceRight<T, R>(
   elements: T[],
   cb: CallBackReduceRight<T, R>,
   initialValue?: R
-): Promise<R> {
-  let reducedValue: any = initialValue;
-  for (const [index, element] of elements.reverse().entries()) {
-    reducedValue = await cb(reducedValue, element, index, elements);
+): Promise<T | R> {
+  if (!elements.length && !initialValue) {
+    throw new Error('Reduce of empty array with no initial value');
+  }
+
+  let reducedValue: T | R;
+
+  const reversedElements = [...elements].reverse();
+  if (initialValue === undefined) {
+    reducedValue = reversedElements.shift() as T;
+  } else {
+    reducedValue = initialValue;
+  }
+
+  for (const [index, element] of reversedElements.entries()) {
+    reducedValue = await cb(reducedValue, element, index, reversedElements);
   }
 
   return reducedValue;

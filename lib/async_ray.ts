@@ -99,7 +99,7 @@ export class AsyncArray<T> extends Array<T> {
   async aReduce<R>(
     cb: Methods.CallBackReduce<T, R>,
     initialValue?: R
-  ): Promise<R> {
+  ): Promise<R | T> {
     return Methods.reduce(this.input, cb, initialValue);
   }
 
@@ -115,7 +115,7 @@ export class AsyncArray<T> extends Array<T> {
   async aReduceRight<R>(
     cb: Methods.CallBackReduceRight<T, R>,
     initialValue?: R
-  ): Promise<R> {
+  ): Promise<T | R> {
     return Methods.reduceRight(this.input, cb, initialValue);
   }
 

@@ -1,6 +1,6 @@
 import 'mocha';
 import * as should from 'should';
-import { AsyncRay } from '../lib/';
+import { AsyncRay } from '../lib';
 
 async function dummy(num: number): Promise<number> {
   return Promise.resolve(num * 10);
@@ -12,14 +12,16 @@ describe('AsyncRay', () => {
     inputArray = [1, 2, 3, 4];
   });
 
-  describe('Reduce', () => {
+  describe('reduceRight', () => {
     describe('with initial value', () => {
-      it('should return reduce values for number', async () => {
-        const outputElement = await AsyncRay(inputArray).aReduce<number>(
+      it('should return reduceRight values for number', async () => {
+        const reversedArray = [...inputArray].reverse();
+
+        const outputElement = await AsyncRay(inputArray).aReduceRight<number>(
           async (acc, i, index, collection) => {
             should(collection)
               .instanceOf(Array)
-              .containDeepOrdered(inputArray);
+              .containDeepOrdered(reversedArray);
             should(i)
               .not.undefined()
               .Number();
@@ -33,13 +35,15 @@ describe('AsyncRay', () => {
         should(outputElement).eql(101);
       });
 
-      it('should return reduce values for string', async () => {
+      it('should return reduceRight values for string', async () => {
         const inputString: string[] = ['s', 't', 'r', 'i', 'n', 'g'];
-        const outputElement = await AsyncRay(inputString).aReduce<string>(
+        const reversedArray = [...inputString].reverse();
+
+        const outputElement = await AsyncRay(inputString).aReduceRight<string>(
           async (acc, i, index, collection) => {
             should(collection)
               .instanceOf(Array)
-              .containDeepOrdered(inputString);
+              .containDeepOrdered(reversedArray);
             should(i)
               .not.undefined()
               .String();
@@ -50,18 +54,19 @@ describe('AsyncRay', () => {
           ''
         );
 
-        should(outputElement).eql('string');
+        should(outputElement).eql([...'string'].reverse().join(''));
       });
 
-      it('should return reduce values for array containing arrays', async () => {
+      it('should return reduceRight values for array containing arrays', async () => {
         const inputArrayOfArrays: [number, number][] = [[0, 1], [2, 3], [4, 5]];
+        const reversedArray = [...inputArrayOfArrays].reverse();
 
-        const outputElement = await AsyncRay(inputArrayOfArrays).aReduce<
+        const outputElement = await AsyncRay(inputArrayOfArrays).aReduceRight<
           number[]
         >(async (acc, i, index, collection) => {
           should(collection)
             .instanceOf(Array)
-            .containDeepOrdered(inputArrayOfArrays);
+            .containDeepOrdered(reversedArray);
           should(i)
             .instanceOf(Array)
             .containDeepOrdered(i);
@@ -70,20 +75,20 @@ describe('AsyncRay', () => {
           return Promise.resolve(acc.concat(i));
         }, []);
 
-        should(outputElement).containDeepOrdered([0, 1, 2, 3, 4, 5]);
+        should(outputElement).containDeepOrdered([4, 5, 2, 3, 0, 1]);
       });
     });
 
     describe('without initial value', () => {
-      it('should return reduce values for number', async () => {
-        const copiedArray = [...inputArray];
-        copiedArray.shift();
+      it('should return reduceRight values for number', async () => {
+        const reversedArray = [...inputArray].reverse();
+        reversedArray.shift();
 
-        const outputElement = await AsyncRay(inputArray).aReduce<number>(
+        const outputElement = await AsyncRay(inputArray).aReduceRight<number>(
           async (acc, i, index, collection) => {
             should(collection)
               .instanceOf(Array)
-              .containDeepOrdered(copiedArray);
+              .containDeepOrdered(reversedArray);
             should(i)
               .not.undefined()
               .Number();
@@ -93,19 +98,19 @@ describe('AsyncRay', () => {
           }
         );
 
-        should(outputElement).eql(91);
+        should(outputElement).eql(64);
       });
 
-      it('should return reduce values for string', async () => {
+      it('should return reduceRight values for string', async () => {
         const inputString: string[] = ['s', 't', 'r', 'i', 'n', 'g'];
-        const copiedString = [...inputString];
-        copiedString.shift();
+        const reversedArray = [...inputString].reverse();
+        reversedArray.shift();
 
-        const outputElement = await AsyncRay(inputString).aReduce<string>(
+        const outputElement = await AsyncRay(inputString).aReduceRight<string>(
           async (acc, i, index, collection) => {
             should(collection)
               .instanceOf(Array)
-              .containDeepOrdered(copiedString);
+              .containDeepOrdered(reversedArray);
             should(i)
               .not.undefined()
               .String();
@@ -115,20 +120,20 @@ describe('AsyncRay', () => {
           }
         );
 
-        should(outputElement).eql('string');
+        should(outputElement).eql([...'string'].reverse().join(''));
       });
 
-      it('should return reduce values for array containing arrays', async () => {
+      it('should return reduceRight values for array containing arrays', async () => {
         const inputArrayOfArrays: [number, number][] = [[0, 1], [2, 3], [4, 5]];
-        const copiedArrayOfArrays = [...inputArrayOfArrays];
-        copiedArrayOfArrays.shift();
+        const reversedArray = [...inputArrayOfArrays].reverse();
+        reversedArray.shift();
 
-        const outputElement = await AsyncRay(inputArrayOfArrays).aReduce<
+        const outputElement = await AsyncRay(inputArrayOfArrays).aReduceRight<
           number[]
         >(async (acc, i, index, collection) => {
           should(collection)
             .instanceOf(Array)
-            .containDeepOrdered(copiedArrayOfArrays);
+            .containDeepOrdered(reversedArray);
           should(i)
             .instanceOf(Array)
             .containDeepOrdered(i);
@@ -137,7 +142,7 @@ describe('AsyncRay', () => {
           return Promise.resolve(acc.concat(i));
         });
 
-        should(outputElement).containDeepOrdered([0, 1, 2, 3, 4, 5]);
+        should(outputElement).containDeepOrdered([4, 5, 2, 3, 0, 1]);
       });
     });
   });
