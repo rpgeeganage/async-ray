@@ -46,11 +46,22 @@ export class AsyncArray<T> extends Array<T> {
    * Async find method
    *
    * @param {Methods.CallBackFind<T>} cb
-   * @returns {(Promise<T | undefined>)}
+   * @returns {Promise<T | undefined>}
    * @memberof AsyncArray
    */
   async aFind(cb: Methods.CallBackFind<T>): Promise<T | undefined> {
     return Methods.find<T>(this.input, cb);
+  }
+
+  /**
+   * Async findIndex method
+   *
+   * @param {Methods.CallBackFindIndex<T>} cb
+   * @returns {Promise<number>}
+   * @memberof AsyncArray
+   */
+  async aFindIndex(cb: Methods.CallBackFindIndex<T>): Promise<number> {
+    return Methods.findIndex<T>(this.input, cb);
   }
 
   /**
@@ -82,14 +93,30 @@ export class AsyncArray<T> extends Array<T> {
    * @template R
    * @param {Methods.CallBackReduce<T, R>} cb
    * @param {R} [initialValue]
-   * @returns {Promise<R>}
+   * @returns {Promise<T | R>}
    * @memberof AsyncArray
    */
   async aReduce<R>(
     cb: Methods.CallBackReduce<T, R>,
     initialValue?: R
-  ): Promise<R> {
+  ): Promise<T | R> {
     return Methods.reduce(this.input, cb, initialValue);
+  }
+
+  /**
+   * Async ReduceRight method
+   *
+   * @template R
+   * @param {Methods.CallBackReduceRight<T, R>} cb
+   * @param {R} [initialValue]
+   * @returns {Promise<T | R>}
+   * @memberof AsyncArray
+   */
+  async aReduceRight<R>(
+    cb: Methods.CallBackReduceRight<T, R>,
+    initialValue?: R
+  ): Promise<T | R> {
+    return Methods.reduceRight(this.input, cb, initialValue);
   }
 
   /**
