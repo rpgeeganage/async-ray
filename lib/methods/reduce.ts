@@ -27,16 +27,17 @@ export async function reduce<T, R>(
   }
 
   let reducedValue: T | R;
-  const copiedElements = [...elements];
+  let index = 0;
 
   if (initialValue === undefined) {
-    reducedValue = copiedElements.shift() as T;
+    reducedValue = elements[0] as T;
+    index++;
   } else {
     reducedValue = initialValue;
   }
 
-  for (const [index, element] of copiedElements.entries()) {
-    reducedValue = await cb(reducedValue, element, index, copiedElements);
+  for (; index < elements.length; index++) {
+    reducedValue = await cb(reducedValue, elements[index], index, elements);
   }
 
   return reducedValue;

@@ -52,11 +52,9 @@ describe('AsyncRay', () => {
     });
 
     it('should return -1 as index if array is empty', async () => {
-      const output: number = await AsyncRay([]).aFindIndex(
-        async () => {
-          return true;
-        }
-      );
+      const output: number = await AsyncRay([]).aFindIndex(async () => {
+        return true;
+      });
 
       should(output).eql(-1);
     });
