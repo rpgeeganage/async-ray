@@ -27,16 +27,17 @@ export async function reduceRight<T, R>(
   }
 
   let reducedValue: T | R;
-  const reversedElements = [...elements].reverse();
+  let index = elements.length - 1;
 
   if (initialValue === undefined) {
-    reducedValue = reversedElements.shift() as T;
+    reducedValue = elements[index] as T;
+    index--;
   } else {
     reducedValue = initialValue;
   }
 
-  for (const [index, element] of reversedElements.entries()) {
-    reducedValue = await cb(reducedValue, element, index, reversedElements);
+  for (; index >= 0; index--) {
+    reducedValue = await cb(reducedValue, elements[index], index, elements);
   }
 
   return reducedValue;
