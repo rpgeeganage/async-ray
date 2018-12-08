@@ -226,18 +226,27 @@ console.log(output);
 // Output is true
 ```
 
-## Chaining methods
+## Chaining
 
-### Please note that `.aEvery`, `.aFilter`, `.aFind`, `.aForEach`, `.aMap`, `aReduce` and  `.aSome` cannot be chained with each other.
+## Between AsyncRay methods
 
-Eg:
+### **Only** `.aFilter`, `.aForEach` amd `.aMap` may be chained together.
 
+Make sure to put before each AsyncRay method call an `await` (or call `.then(...)`) since a Promise is returned by the async methods.
+
+#### sample 1 - `aMap` and `aFilter`
 ```js
-// Below code will throw an error
-AsyncRay([1,2,3]).aMap(...).aReduce(...)
+await(
+  await AsyncRay([1,2,3])
+    .aMap(...))
+    .aFilter(...)
+)
 ```
 
-But `.aEvery`, `.aFilter`, `.aFind`,`.aFindIndex`, `.aForEach`, `.aMap`, `aReduce`, `aReduceRight` and  `.aSome` can be chained with other [Array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#).
+
+## Between other [Array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#) methods
+
+`.aEvery`, `.aFilter`, `.aFind`,`.aFindIndex`, `.aForEach`, `.aMap`, `aReduce`, `aReduceRight` and  `.aSome` can be chained with other [Array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#).
 
 #### sample 1 - `aMap` and `filter`
 
