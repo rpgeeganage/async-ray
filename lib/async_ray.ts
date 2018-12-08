@@ -39,7 +39,6 @@ export class AsyncArray<T> extends Array<T> {
    * @memberof AsyncArray
    */
   async aFilter(cb: Methods.CallBackFilter<T>): Promise<AsyncArray<T>> {
-    // console.log(...await Methods.filter<T>(this.input, cb));
     return new AsyncArray(...await Methods.filter<T>(this.input, cb));
   }
 
