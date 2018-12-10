@@ -230,17 +230,15 @@ console.log(output);
 
 ## Between AsyncRay methods
 
-### **Only** `.aFilter`, `.aForEach` amd `.aMap` may be chained together.
+### **Only** `.aFilter` and `.aMap` may be chained together.
 
 Make sure to put before each AsyncRay method call an `await` (or call `.then(...)`) since a Promise is returned by the async methods.
 
-#### sample 1 - `aMap` and `aFilter`
+#### sample
 ```js
-await(
-  await AsyncRay([1,2,3])
-    .aMap(...))
-    .aFilter(...)
-)
+await(await AsyncRay([1,2,3])
+    .aFilter(...))
+    .Map(...)
 ```
 
 

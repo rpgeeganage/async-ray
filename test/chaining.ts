@@ -21,17 +21,13 @@ describe('Chaining', () => {
     inputArray = [1, 2, 3, 4];
   });
 
-  it('aMap(), aFilter() and aForEach()', async () => {
+  it('aMap() and aFilter()', async () => {
     const outputArray = 
-      await( 
-        await( 
-          await AsyncRay(inputArray)
-            .aMap(async (i) => 
-              dummyAsync(i)))
+      await(await AsyncRay(inputArray)
+        .aMap(async (i) => 
+          dummyAsync(i))
         .aFilter(async (i) => 
-          dummyAsyncCond(!!i)))
-      .aForEach(async (i) => 
-        undefined)
+          dummyAsyncCond(!!i)
 
     should(outputArray).instanceOf(AsyncArray);
   });

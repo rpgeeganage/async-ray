@@ -1,7 +1,6 @@
 import 'mocha';
 import * as should from 'should';
 import { AsyncRay } from '../lib/';
-import { AsyncArray } from '../lib/async_ray';
 
 async function dummy(num: number): Promise<number> {
   return Promise.resolve(num);
@@ -14,14 +13,6 @@ describe('AsyncRay', () => {
   });
 
   describe('forEach', () => {
-    it('should return an instance of AsyncArray', async () => {
-      const outputArray = await AsyncRay(inputArray).aForEach(
-        async () => undefined
-      );
-      
-      should(outputArray).instanceOf(AsyncArray);
-    });
-
     it('should execute the loop', async () => {
       const outputArray: number[] = [];
       await AsyncRay(inputArray).aForEach(async (i, index, collection) => {

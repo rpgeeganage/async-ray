@@ -71,10 +71,8 @@ export class AsyncArray<T> extends Array<T> {
    * @returns {Promise<void>}
    * @memberof AsyncArray
    */
-  async aForEach(cb: Methods.CallBackForEach<T>): Promise<AsyncArray<T>> {
+  async aForEach(cb: Methods.CallBackForEach<T>): Promise<void> {
     await Methods.forEach<T>(this.input, cb);
-    
-    return this;
   }
 
   /**
