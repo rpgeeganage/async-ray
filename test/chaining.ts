@@ -25,9 +25,9 @@ describe('Chaining', () => {
     const outputArray = 
       await(await AsyncRay(inputArray)
         .aMap(async (i) => 
-          dummyAsync(i))
+          dummyAsync(i)))
         .aFilter(async (i) => 
-          dummyAsyncCond(!!i)
+          dummyAsyncCond(!!i))
 
     should(outputArray).instanceOf(AsyncArray);
   });
