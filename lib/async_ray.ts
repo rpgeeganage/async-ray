@@ -8,8 +8,6 @@ import * as Methods from './methods';
  * @template T
  */
 export class AsyncArray<T> extends Array<T> {
-  private input: T[];
-
   /**
    * Creates an instance of AsyncArray
    * @param {...T[]} args
@@ -17,7 +15,6 @@ export class AsyncArray<T> extends Array<T> {
    */
   constructor(...args: T[]) {
     super(...args);
-    this.input = args;
   }
 
   /**
@@ -28,7 +25,7 @@ export class AsyncArray<T> extends Array<T> {
    * @memberof AsyncArray
    */
   async aEvery(cb: Methods.CallBackFilter<T>): Promise<boolean> {
-    return Methods.every<T>(this.input, cb);
+    return Methods.every<T>(this, cb);
   }
 
   /**
@@ -39,7 +36,7 @@ export class AsyncArray<T> extends Array<T> {
    * @memberof AsyncArray
    */
   async aFilter(cb: Methods.CallBackFilter<T>): Promise<AsyncArray<T>> {
-    return new AsyncArray(...await Methods.filter<T>(this.input, cb));
+    return new AsyncArray(...(await Methods.filter<T>(this, cb)));
   }
 
   /**
@@ -50,7 +47,7 @@ export class AsyncArray<T> extends Array<T> {
    * @memberof AsyncArray
    */
   async aFind(cb: Methods.CallBackFind<T>): Promise<T | undefined> {
-    return Methods.find<T>(this.input, cb);
+    return Methods.find<T>(this, cb);
   }
 
   /**
@@ -61,7 +58,7 @@ export class AsyncArray<T> extends Array<T> {
    * @memberof AsyncArray
    */
   async aFindIndex(cb: Methods.CallBackFindIndex<T>): Promise<number> {
-    return Methods.findIndex<T>(this.input, cb);
+    return Methods.findIndex<T>(this, cb);
   }
 
   /**
@@ -72,7 +69,7 @@ export class AsyncArray<T> extends Array<T> {
    * @memberof AsyncArray
    */
   async aForEach(cb: Methods.CallBackForEach<T>): Promise<void> {
-    await Methods.forEach<T>(this.input, cb);
+    await Methods.forEach<T>(this, cb);
   }
 
   /**
@@ -84,7 +81,7 @@ export class AsyncArray<T> extends Array<T> {
    * @memberof AsyncArray
    */
   async aMap<R>(cb: Methods.CallBackMap<T, R>): Promise<AsyncArray<R>> {
-    return new AsyncArray(...await Methods.map<T, R>(this.input, cb));
+    return new AsyncArray(...(await Methods.map<T, R>(this, cb)));
   }
 
   /**
@@ -100,7 +97,7 @@ export class AsyncArray<T> extends Array<T> {
     cb: Methods.CallBackReduce<T, R>,
     initialValue?: R
   ): Promise<T | R> {
-    return Methods.reduce(this.input, cb, initialValue);
+    return Methods.reduce(this, cb, initialValue);
   }
 
   /**
@@ -116,7 +113,7 @@ export class AsyncArray<T> extends Array<T> {
     cb: Methods.CallBackReduceRight<T, R>,
     initialValue?: R
   ): Promise<T | R> {
-    return Methods.reduceRight(this.input, cb, initialValue);
+    return Methods.reduceRight(this, cb, initialValue);
   }
 
   /**
@@ -127,6 +124,6 @@ export class AsyncArray<T> extends Array<T> {
    * @memberof AsyncArray
    */
   async aSome(cb: Methods.CallBackFilter<T>): Promise<boolean> {
-    return Methods.some<T>(this.input, cb);
+    return Methods.some<T>(this, cb);
   }
 }

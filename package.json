@@ -3,7 +3,7 @@
   "description": "Allow perform every, filter, find, findIndex, forEach, map, reduce, reduceRight and some on array using Async callback",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "version": "2.2.1",
+  "version": "3.0.0",
   "scripts": {
     "pretest": "npm run build",
     "test": "mocha -r ts-node/register/type-check test/*.ts",

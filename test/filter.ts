@@ -15,11 +15,19 @@ describe('AsyncRay', () => {
 
   describe('filter', () => {
     it('should return an instance of AsyncArray', async () => {
-      const outputArray = await AsyncRay(inputArray).aFilter(
-        async (i) => dummy(!!i)
+      const outputArray = await AsyncRay(inputArray).aFilter(async (i) =>
+        dummy(!!i)
       );
-      
+
       should(outputArray).instanceOf(AsyncArray);
+    });
+
+    it('should return an instance of Array', async () => {
+      const outputArray = await AsyncRay(inputArray).aFilter(async (i) =>
+        dummy(!!i)
+      );
+
+      should(outputArray).instanceOf(Array);
     });
 
     it('should filter and send a none-empty array', async () => {
@@ -59,7 +67,7 @@ describe('AsyncRay', () => {
 
       should(outputArray)
         .instanceOf(Array)
-        .length(0);
+        .empty();
     });
   });
 });
