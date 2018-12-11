@@ -1,6 +1,7 @@
 import 'mocha';
 import * as should from 'should';
 import { AsyncRay } from '../lib/';
+import { AsyncArray } from '../lib/async_ray';
 
 async function dummy(condition: boolean): Promise<boolean> {
   return Promise.resolve(condition);
@@ -13,6 +14,14 @@ describe('AsyncRay', () => {
   });
 
   describe('filter', () => {
+    it('should return an instance of AsyncArray', async () => {
+      const outputArray = await AsyncRay(inputArray).aFilter(
+        async (i) => dummy(!!i)
+      );
+      
+      should(outputArray).instanceOf(AsyncArray);
+    });
+
     it('should filter and send a none-empty array', async () => {
       const outputArray = await AsyncRay(inputArray).aFilter(
         async (i, index, collection) => {
@@ -50,7 +59,7 @@ describe('AsyncRay', () => {
 
       should(outputArray)
         .instanceOf(Array)
-        .empty();
+        .length(0);
     });
   });
 });

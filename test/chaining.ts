@@ -1,9 +1,14 @@
 import 'mocha';
 import * as should from 'should';
 import { AsyncRay } from '../lib/';
+import { AsyncArray } from '../lib/async_ray';
 
 async function dummyAsync(num: number): Promise<number> {
   return Promise.resolve(num * 10);
+}
+
+async function dummyAsyncCond(condition: boolean): Promise<boolean> {
+  return Promise.resolve(condition);
 }
 
 function dummy(num: number): number {
@@ -16,7 +21,18 @@ describe('Chaining', () => {
     inputArray = [1, 2, 3, 4];
   });
 
-  it('Chaining aMap() and map()', async () => {
+  it('aMap() and aFilter()', async () => {
+    const outputArray = 
+      await(await AsyncRay(inputArray)
+        .aMap(async (i) => 
+          dummyAsync(i)))
+        .aFilter(async (i) => 
+          dummyAsyncCond(!!i))
+
+    should(outputArray).instanceOf(AsyncArray);
+  });
+
+  it('aMap() and map()', async () => {
     const outputArray = (await AsyncRay(inputArray).aMap(async (i) =>
       dummyAsync(i)
     )).map(dummy);
@@ -24,7 +40,7 @@ describe('Chaining', () => {
     should(outputArray).containDeepOrdered([100, 200, 300, 400]);
   });
 
-  it('Chaining aMap() and reduce()', async () => {
+  it('aMap() and reduce()', async () => {
     const output = (await AsyncRay(inputArray).aMap(async (i) =>
       dummyAsync(i)
     )).reduce((acc, i) => acc + dummy(i), 100);
@@ -32,7 +48,7 @@ describe('Chaining', () => {
     should(output).eql(1100);
   });
 
-  it('Chaining aMap() and find()', async () => {
+  it('aMap() and find()', async () => {
     const output = (await AsyncRay(inputArray).aMap(async (i) =>
       dummyAsync(i)
     )).find((e) => e === 20);
@@ -40,7 +56,7 @@ describe('Chaining', () => {
     should(output).eql(20);
   });
 
-  it('Chaining aFilter() and map()', async () => {
+  it('aFilter() and map()', async () => {
     const outputArray = (await AsyncRay(inputArray).aFilter(
       async (i) => (await dummyAsync(i)) > 20
     )).map(dummy);
@@ -48,7 +64,7 @@ describe('Chaining', () => {
     should(outputArray).containDeepOrdered([30, 40]);
   });
 
-  it('Chaining aFilter() and reduce()', async () => {
+  it('aFilter() and reduce()', async () => {
     const output = (await AsyncRay(inputArray).aFilter(
       async (i) => (await dummyAsync(i)) > 20
     )).reduce((acc, i) => acc + dummy(i), 100);
@@ -56,7 +72,7 @@ describe('Chaining', () => {
     should(output).eql(170);
   });
 
-  it('Chaining aFilter() and find()', async () => {
+  it('aFilter() and find()', async () => {
     const output = (await AsyncRay(inputArray).aFilter(
       async (i) => (await dummyAsync(i)) > 20
     )).find((e) => e === 4);

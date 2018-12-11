@@ -38,8 +38,8 @@ export class AsyncArray<T> extends Array<T> {
    * @returns {Promise<T[]>}
    * @memberof AsyncArray
    */
-  async aFilter(cb: Methods.CallBackFilter<T>): Promise<T[]> {
-    return Methods.filter<T>(this.input, cb);
+  async aFilter(cb: Methods.CallBackFilter<T>): Promise<AsyncArray<T>> {
+    return new AsyncArray(...await Methods.filter<T>(this.input, cb));
   }
 
   /**
@@ -83,8 +83,8 @@ export class AsyncArray<T> extends Array<T> {
    * @returns {Promise<R[]>}
    * @memberof AsyncArray
    */
-  async aMap<R>(cb: Methods.CallBackMap<T, R>): Promise<R[]> {
-    return Methods.map<T, R>(this.input, cb);
+  async aMap<R>(cb: Methods.CallBackMap<T, R>): Promise<AsyncArray<R>> {
+    return new AsyncArray(...await Methods.map<T, R>(this.input, cb));
   }
 
   /**
