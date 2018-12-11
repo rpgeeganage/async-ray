@@ -15,11 +15,15 @@ describe('AsyncRay', () => {
 
   describe('map', () => {
     it('should return an instance of AsyncArray', async () => {
-      const outputArray = await AsyncRay(inputArray).aMap(
-        async () => null
-      );
-      
+      const outputArray = await AsyncRay(inputArray).aMap(async () => null);
+
       should(outputArray).instanceOf(AsyncArray);
+    });
+
+    it('should return an instance of Array', async () => {
+      const outputArray = await AsyncRay(inputArray).aMap(async () => null);
+
+      should(outputArray).instanceOf(Array);
     });
 
     it('should map the given cb', async () => {
