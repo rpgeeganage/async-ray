@@ -1091,12 +1091,16 @@ img { max-width: 100%; }
 
 <span class="hljs-built_in">console</span>.log(output);
 <span class="hljs-comment">// Output is true</span></code></pre>
-			<h2 id="chaining-methods">Chaining methods</h2>
-			<h3 id="please-note-that-aevery-afilter-afind-aforeach-amap-areduce-and-asome-cannot-be-chained-with-each-other-">Please note that <code>.aEvery</code>, <code>.aFilter</code>, <code>.aFind</code>, <code>.aForEach</code>, <code>.aMap</code>, <code>aReduce</code> and  <code>.aSome</code> cannot be chained with each other.</h3>
-			<p>Eg:</p>
-			<pre><code class="language-js"><span class="hljs-comment">// Below code will throw an error</span>
-AsyncRay([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]).aMap(...).aReduce(...)</code></pre>
-			<p>But <code>.aEvery</code>, <code>.aFilter</code>, <code>.aFind</code>,<code>.aFindIndex</code>, <code>.aForEach</code>, <code>.aMap</code>, <code>aReduce</code>, <code>aReduceRight</code> and  <code>.aSome</code> can be chained with other <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#">Array methods</a>.</p>
+			<h2 id="chaining">Chaining</h2>
+			<h2 id="between-asyncray-methods">Between AsyncRay methods</h2>
+			<h3 id="only-afilter-and-amap-may-be-chained-together-"><strong>Only</strong> <code>.aFilter</code> and <code>.aMap</code> may be chained together.</h3>
+			<p>Make sure to put before each AsyncRay method call an <code>await</code> (or call <code>.then(...)</code>) since a Promise is returned by the async methods.</p>
+			<h4 id="sample">sample</h4>
+			<pre><code class="language-js"><span class="hljs-keyword">await</span>(<span class="hljs-keyword">await</span> AsyncRay([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>])
+    .aFilter(...))
+    .Map(...)</code></pre>
+			<h2 id="between-other-array-methods-methods">Between other <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#">Array methods</a> methods</h2>
+			<p><code>.aEvery</code>, <code>.aFilter</code>, <code>.aFind</code>,<code>.aFindIndex</code>, <code>.aForEach</code>, <code>.aMap</code>, <code>aReduce</code>, <code>aReduceRight</code> and  <code>.aSome</code> can be chained with other <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#">Array methods</a>.</p>
 			<h4 id="sample-1-amap-and-filter">sample 1 - <code>aMap</code> and <code>filter</code></h4>
 			<pre><code class="language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dummy</span>(<span class="hljs-params">ele</span>) </span>{
   <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(ele);
