@@ -1,4 +1,10 @@
+doc
 lib
+test
+_config.yml
 tsconfig.json
 tslint.json
 .prettierrc
+.prettierignore
+.travis.yml
+yarn-error.log
