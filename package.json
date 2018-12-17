@@ -6,7 +6,8 @@
   "version": "3.0.1",
   "scripts": {
     "pretest": "npm run build",
-    "test": "mocha -r ts-node/register/type-check test/*.ts",
+    "test": "nyc mocha",
+    "posttest": "nyc report --reporter=json",
     "build": "tsc",
     "format": "prettier --write \"**/*.ts\" \"**/*.js\"",
     "lint": "tslint -p tsconfig.json",
@@ -22,8 +23,10 @@
   "devDependencies": {
     "@types/mocha": "^5.2.5",
     "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
     "prettier": "^1.14.3",
     "should": "^13.2.3",
+    "source-map-support": "^0.5.9",
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
@@ -34,6 +37,23 @@
     "url": "git://github.com/rpgeeganage/async-ray.git"
   },
   "dependencies": {},
+  "nyc": {
+    "extension": [
+      ".ts"
+    ],
+    "exclude": [
+      "**/*.d.ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "sourceMap": true,
+    "instrument": true
+  },
   "keywords": [
     "Array",
     "Async/Await",
