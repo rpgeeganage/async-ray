@@ -7,7 +7,7 @@
   "scripts": {
     "pretest": "npm run build",
     "test": "nyc mocha",
-    "test-coverage-report": "nyc mocha && cat ./coverage/lcov.info | codacy-coverage |  && rm -rf ./coverage",
+    "test-coverage-report": "npm test && cat ./coverage/lcov.info | codacy-coverage && rm -rf ./coverage",
     "build": "tsc",
     "format": "prettier --write \"**/*.ts\" \"**/*.js\"",
     "lint": "tslint -p tsconfig.json",
