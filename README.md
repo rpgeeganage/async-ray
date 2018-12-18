@@ -1,6 +1,5 @@
 # Async-Ray
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/rpgeeganage/async-ray.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/rpgeeganage/async-ray/context:javascript)
-[![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/rpgeeganage/async-ray.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/rpgeeganage/async-ray/context:javascript)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/967e339f9fdb4424a48ba37a0292f221)](https://app.codacy.com/app/rpgeeganage/async-ray?utm_source=github.com&utm_medium=referral&utm_content=rpgeeganage/async-ray&utm_campaign=Badge_Grade_Settings)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/3e1503ed17af4dc5aadb1fbbc41191d3)](https://www.codacy.com/app/rpgeeganage/async-ray?utm_source=github.com&utm_medium=referral&utm_content=rpgeeganage/async-ray&utm_campaign=Badge_Coverage)
 [![Build Status](https://travis-ci.org/rpgeeganage/async-ray.svg?branch=master)](https://travis-ci.org/rpgeeganage/async-ray)
