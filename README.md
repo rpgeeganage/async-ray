@@ -1,6 +1,7 @@
 # Async-Ray
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/967e339f9fdb4424a48ba37a0292f221)](https://app.codacy.com/app/rpgeeganage/async-ray?utm_source=github.com&utm_medium=referral&utm_content=rpgeeganage/async-ray&utm_campaign=Badge_Grade_Settings)
+[![Known Vulnerabilities](https://snyk.io/test/github/rpgeeganage/async-ray/badge.svg?targetFile=package.json)](https://snyk.io/test/github/rpgeeganage/async-ray?targetFile=package.json)
 
 Purpose of this package is to provide `async/await` callbacks for `every`, `filter`, `find`, `findIndex`, `forEach`, `map`, `reduce`, `reduceRight` and `some` methods in **_Array_**.
 
