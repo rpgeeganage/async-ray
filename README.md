@@ -4,6 +4,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/3e1503ed17af4dc5aadb1fbbc41191d3)](https://www.codacy.com/app/rpgeeganage/async-ray?utm_source=github.com&utm_medium=referral&utm_content=rpgeeganage/async-ray&utm_campaign=Badge_Coverage)
 [![Build Status](https://travis-ci.org/rpgeeganage/async-ray.svg?branch=master)](https://travis-ci.org/rpgeeganage/async-ray)
 [![Known Vulnerabilities](https://snyk.io/test/github/rpgeeganage/async-ray/badge.svg?targetFile=package.json)](https://snyk.io/test/github/rpgeeganage/async-ray?targetFile=package.json)
+[![Maintainability](https://api.codeclimate.com/v1/badges/4c9603df3595612def57/maintainability)](https://codeclimate.com/github/rpgeeganage/async-ray/maintainability)
 
 Purpose of this package is to provide `async/await` callbacks for `every`, `filter`, `find`, `findIndex`, `forEach`, `map`, `reduce`, `reduceRight` and `some` methods in **_Array_**.
 
