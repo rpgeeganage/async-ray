@@ -1,7 +1,7 @@
 import 'mocha';
 import * as should from 'should';
 import { Chain } from '../lib/';
-import { AsyncArray } from '../lib/async_ray';
+import { AsyncArray } from '../lib/async_array';
 
 describe('Chainable', () => {
   it('should return AsyncRay instance', async () => {

@@ -1,7 +1,7 @@
 import 'mocha';
 import * as should from 'should';
 import { AsyncRay } from '../lib/';
-import { AsyncArray } from '../lib/async_ray';
+import { AsyncArray } from '../lib/async_array';
 
 async function dummyAsync(num: number): Promise<number> {
   return Promise.resolve(num * 10);
@@ -22,11 +22,11 @@ describe('Chaining', () => {
   });
 
   it('aMap() and aFilter()', async () => {
-    const outputArray = 
+    const outputArray =
       await(await AsyncRay(inputArray)
-        .aMap(async (i) => 
+        .aMap(async (i) =>
           dummyAsync(i)))
-        .aFilter(async (i) => 
+        .aFilter(async (i) =>
           dummyAsyncCond(!!i))
 
     should(outputArray).instanceOf(AsyncArray);

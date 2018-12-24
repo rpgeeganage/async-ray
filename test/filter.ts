@@ -1,7 +1,7 @@
 import 'mocha';
 import * as should from 'should';
 import { AsyncRay } from '../lib/';
-import { AsyncArray } from '../lib/async_ray';
+import { AsyncArray } from '../lib/async_array';
 
 async function dummy(condition: boolean): Promise<boolean> {
   return Promise.resolve(condition);

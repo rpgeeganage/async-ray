@@ -1,6 +1,6 @@
 import 'mocha';
 import * as should from 'should';
-import { AsyncArray } from '../lib/async_ray';
+import { AsyncArray } from '../lib/async_array';
 
 describe('Create an array', () => {
   it('should create an array of 1 positive number', () => {
@@ -9,7 +9,6 @@ describe('Create an array', () => {
       .instanceOf(AsyncArray)
       .size(1);
 
-    console.log(array);
     should(array[0]).eql(20);
   });
 
