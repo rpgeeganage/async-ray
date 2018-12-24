@@ -14,7 +14,29 @@ export class AsyncArray<T> extends Array<T> {
    * @memberof AsyncArray
    */
   constructor(...args: T[]) {
-    super(...args);
+    /***
+     * Why we need this ?
+     * 1. length and type checking:
+     * if we pass one element array with an number as below,
+     * const foo = AsyncArray([20]);
+     * Based https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#Syntax
+     * a new Array will be created with 20 empty elements, as below.
+     * [null, null, ...]
+     * In order to avoid that, we need the particular workaround
+     *
+     * 2. Getting the absolute value of the element.
+     * Based on the above behavior,
+     * Below code will throw an error.
+     * const foo = AsyncArray([-2]);
+     * In that manner, we need to take the absolute value.
+     */
+    if (args.length === 1 && typeof args[0] === 'number') {
+      super(Math.abs(+args[0]));
+      super[0] = args[0];
+      super.length = 1;
+    } else {
+      super(...args);
+    }
   }
 
   /**
