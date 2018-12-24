@@ -1,5 +1,5 @@
-import { AsyncArray } from './async_ray';
-import { Chainable } from './chain';
+import { AsyncArray } from './async_array';
+import { Chainable } from './chainable';
 
 /**
  * Get AsyncArray element

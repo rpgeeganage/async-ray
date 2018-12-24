@@ -1,4 +1,4 @@
-import { AsyncArray } from './async_ray';
+import { AsyncArray } from './async_array';
 import * as methods from './methods';
 
 type CallBacks =
