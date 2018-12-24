@@ -1,41 +1,41 @@
 import 'mocha';
 import * as should from 'should';
 import {
-  every,
-  filter,
-  find,
-  findIndex,
-  forEach,
-  map,
-  reduce,
-  reduceRight,
-  some
+  aEvery,
+  aFilter,
+  aFind,
+  aFindIndex,
+  aForEach,
+  aMap,
+  aReduce,
+  aReduceRight,
+  aSome
 } from '../dist/index';
 
 describe('Testing individual methods', () => {
   it('every', async () => {
-    const response = await every([1, 2, 3], async (e) =>
+    const response = await aEvery([1, 2, 3], async (e) =>
       Promise.resolve(e > 0)
     );
     should(response).be.true();
   });
 
   it('filter', async () => {
-    const response = await filter([1, 2, 3], async (e) =>
+    const response = await aFilter([1, 2, 3], async (e) =>
       Promise.resolve(e > 1)
     );
     should(response).be.containDeepOrdered([2, 3]);
   });
 
   it('find', async () => {
-    const response = await find([1, 2, 3], async (e) =>
+    const response = await aFind([1, 2, 3], async (e) =>
       Promise.resolve(e === 3)
     );
     should(response).be.eql(3);
   });
 
   it('findIndex', async () => {
-    const response = await findIndex([1, 2, 3], async (e) =>
+    const response = await aFindIndex([1, 2, 3], async (e) =>
       Promise.resolve(e === 2)
     );
     should(response).be.eql(1);
@@ -43,7 +43,7 @@ describe('Testing individual methods', () => {
 
   it('forEach', async () => {
     const response: number[] = [];
-    await forEach([1, 2, 3], async (e) => {
+    await aForEach([1, 2, 3], async (e) => {
       const op = await await Promise.resolve(e * 10);
       response.push(op);
     });
@@ -51,12 +51,14 @@ describe('Testing individual methods', () => {
   });
 
   it('map', async () => {
-    const response = await map([1, 2, 3], async (e) => Promise.resolve(e * 10));
+    const response = await aMap([1, 2, 3], async (e) =>
+      Promise.resolve(e * 10)
+    );
     should(response).be.containDeepOrdered([10, 20, 30]);
   });
 
   it('reduce', async () => {
-    const response = await reduce(
+    const response = await aReduce(
       [1, 2, 3],
       async (acc, e) => Promise.resolve(e + acc),
       0
@@ -65,7 +67,7 @@ describe('Testing individual methods', () => {
   });
 
   it('reduceRight', async () => {
-    const response = await reduceRight(
+    const response = await aReduceRight(
       [1, 2, 3],
       async (acc, e) => Promise.resolve(e + acc),
       0
@@ -74,7 +76,7 @@ describe('Testing individual methods', () => {
   });
 
   it('every', async () => {
-    const response = await some([1, 2, 3], async (e) =>
+    const response = await aSome([1, 2, 3], async (e) =>
       Promise.resolve(e > 1)
     );
     should(response).be.true();

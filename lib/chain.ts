@@ -53,7 +53,7 @@ export class Chainable<T> {
    * @memberof Chainable
    */
   aEvery(cb: methods.CallBackEvery<T>): Chainable<T> {
-    this.add(methods.every, cb);
+    this.add(methods.aEvery, cb);
 
     return this;
   }
@@ -66,7 +66,7 @@ export class Chainable<T> {
    * @memberof Chainable
    */
   aFilter(cb: methods.CallBackFilter<T>): Chainable<T> {
-    this.add(methods.filter, cb);
+    this.add(methods.aFilter, cb);
 
     return this;
   }
@@ -79,7 +79,7 @@ export class Chainable<T> {
    * @memberof Chainable
    */
   aFind(cb: methods.CallBackFind<T>): Chainable<T> {
-    this.add(methods.find, cb);
+    this.add(methods.aFind, cb);
 
     return this;
   }
@@ -92,7 +92,7 @@ export class Chainable<T> {
    * @memberof Chainable
    */
   aFindIndex(cb: methods.CallBackFindIndex<T>): Chainable<T> {
-    this.add(methods.findIndex, cb);
+    this.add(methods.aFindIndex, cb);
 
     return this;
   }
@@ -106,7 +106,7 @@ export class Chainable<T> {
    * @memberof Chainable
    */
   aMap<R>(cb: methods.CallBackMap<T, R>): Chainable<T> {
-    this.add(methods.map, cb);
+    this.add(methods.aMap, cb);
 
     return this;
   }
@@ -120,7 +120,7 @@ export class Chainable<T> {
    * @memberof Chainable
    */
   aReduce<R>(cb: methods.CallBackReduce<T, R>): Chainable<T> {
-    this.add(methods.reduce, cb);
+    this.add(methods.aReduce, cb);
 
     return this;
   }
@@ -134,7 +134,7 @@ export class Chainable<T> {
    * @memberof Chainable
    */
   aReduceRight<R>(cb: methods.CallBackReduceRight<T, R>): Chainable<T> {
-    this.add(methods.reduceRight, cb);
+    this.add(methods.aReduceRight, cb);
 
     return this;
   }
@@ -148,7 +148,7 @@ export class Chainable<T> {
    * @memberof Chainable
    */
   aSome<R>(cb: methods.CallBackSome<T>): Chainable<T> {
-    this.add(methods.some, cb);
+    this.add(methods.aSome, cb);
 
     return this;
   }
