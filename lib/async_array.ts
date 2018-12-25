@@ -17,7 +17,7 @@ export class AsyncArray<T> extends Array<T> {
     /***
      * Why we need this ?
      * if we pass one element array with an number as below,
-     * const foo = AsyncArray([20]);
+     * const foo = AsyncArray(...[20]);
      * Based https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#Syntax
      * a new Array will be created with 20 empty elements, as below.
      * [null, null, ...]
