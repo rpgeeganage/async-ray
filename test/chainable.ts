@@ -61,6 +61,23 @@ describe('Chainable', () => {
     ).be.rejectedWith('Unable to process, since last input is not an array');
   });
 
+  it('should throw and halt execution in case of error during the process', async () => {
+    const input = [1, 2, 3, 4];
+
+    should(
+      Chain(input)
+        .aMap(async (e) => Promise.resolve(e * 10))
+        .aFilter(async (e) => Promise.resolve(e > 30))
+        .aMap(async (e) => Promise.resolve(e * 10))
+        .aFilter(async (e) => Promise.resolve(e > 30))
+        .aFilter(async (e) => {
+          throw new Error('This is an error');
+        })
+        .aMap(async (e) => Promise.resolve(e * 10))
+        .process()
+    ).be.rejectedWith('This is an error');
+  });
+
   it('should allow to chain if return value is not an array in last call', async () => {
     const input = [1, 2, 3, 4, 5, 6, 7];
 

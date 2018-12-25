@@ -37,7 +37,7 @@ export class Chainable<T> {
    * @type {SingleCall[]}
    * @memberof Chainable
    */
-  private callStack: SingleCall[] = [];
+  private callQueue: SingleCall[] = [];
 
   /**
    * Creates an instance of Chainable.
@@ -165,7 +165,7 @@ export class Chainable<T> {
    */
   async process(): Promise<any> {
     let currentInput = this.input;
-    while (this.callStack.length) {
+    while (this.callQueue.length) {
       try {
         if (!Array.isArray(currentInput)) {
           throw new Error(
@@ -173,7 +173,7 @@ export class Chainable<T> {
           );
         }
 
-        const method = this.callStack.shift() as SingleCall;
+        const method = this.callQueue.shift() as SingleCall;
         currentInput = await method.method.call(
           null,
           currentInput,
@@ -195,7 +195,7 @@ export class Chainable<T> {
   }
 
   /**
-   * Add element to the call stack
+   * Add element to the call queue
    *
    * @private
    * @param {Function} method
@@ -203,16 +203,16 @@ export class Chainable<T> {
    * @memberof Chainable
    */
   private add(method: Function, callBack: CallBacks, additional?: any): void {
-    this.callStack.push({ method, callBack, additional });
+    this.callQueue.push({ method, callBack, additional });
   }
 
   /**
-   * clear the call stack
+   * clear the call queue
    *
    * @private
    * @memberof Chainable
    */
   private clear() {
-    this.callStack = [];
+    this.callQueue = [];
   }
 }
