@@ -173,12 +173,12 @@ export class Chainable<T> {
           );
         }
 
-        const method = this.callQueue.shift() as SingleCall;
-        currentInput = await method.method.call(
+        const nextCall = this.callQueue.shift() as SingleCall;
+        currentInput = await nextCall.method.call(
           null,
           currentInput,
-          method.callBack,
-          method.additional
+          nextCall.callBack,
+          nextCall.additional
         );
       } catch (error) {
         this.clear();
