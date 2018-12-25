@@ -19,6 +19,7 @@ type CallBacks =
 interface SingleCall {
   method: Function;
   callBack: CallBacks;
+  additional?: any;
 }
 
 /**
@@ -119,8 +120,8 @@ export class Chainable<T> {
    * @returns {Chainable<T>}
    * @memberof Chainable
    */
-  aReduce<R>(cb: methods.CallBackReduce<T, R>): Chainable<T> {
-    this.add(methods.aReduce, cb);
+  aReduce<R>(cb: methods.CallBackReduce<T, R>, initialValue?: R): Chainable<T> {
+    this.add(methods.aReduce, cb, initialValue);
 
     return this;
   }
@@ -133,8 +134,11 @@ export class Chainable<T> {
    * @returns {Chainable<T>}
    * @memberof Chainable
    */
-  aReduceRight<R>(cb: methods.CallBackReduceRight<T, R>): Chainable<T> {
-    this.add(methods.aReduceRight, cb);
+  aReduceRight<R>(
+    cb: methods.CallBackReduceRight<T, R>,
+    initialValue?: R
+  ): Chainable<T> {
+    this.add(methods.aReduceRight, cb, initialValue);
 
     return this;
   }
@@ -173,7 +177,8 @@ export class Chainable<T> {
         currentInput = await method.method.call(
           null,
           currentInput,
-          method.callBack
+          method.callBack,
+          method.additional
         );
       } catch (error) {
         this.clear();
@@ -197,8 +202,8 @@ export class Chainable<T> {
    * @param {CallBacks} callBack
    * @memberof Chainable
    */
-  private add(method: Function, callBack: CallBacks): void {
-    this.callStack.push({ method, callBack });
+  private add(method: Function, callBack: CallBacks, additional?: any): void {
+    this.callStack.push({ method, callBack, additional });
   }
 
   /**

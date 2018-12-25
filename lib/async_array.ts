@@ -31,7 +31,11 @@ export class AsyncArray<T> extends Array<T> {
      * In that manner, we need to take the absolute value.
      */
     if (args.length === 1 && typeof args[0] === 'number') {
-      super(Math.abs(+args[0]));
+      /**
+       * Get the absolute numerical value of first element
+       */
+      const size = Math.abs(+args[0]);
+      super(size);
       super[0] = args[0];
       super.length = 1;
     } else {
