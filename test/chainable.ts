@@ -6,11 +6,11 @@ import { AsyncArray } from '../lib/async_array';
 describe('Chainable', () => {
   it('should handle an empty array', async () => {
     const op = await Chain([])
-      .aMap((e) => Promise.resolve(e * 10))
-      .aMap((e) => Promise.resolve(e * 10))
-      .aFilter((e) => Promise.resolve(e > 30))
-      .aMap((e) => Promise.resolve(e * 10))
-      .aFilter((e) => Promise.resolve(e > 600))
+      .aMap(async (e) => Promise.resolve(e * 10))
+      .aMap(async (e) => Promise.resolve(e * 10))
+      .aFilter(async (e) => Promise.resolve(e > 30))
+      .aMap(async (e) => Promise.resolve(e * 10))
+      .aFilter(async (e) => Promise.resolve(e > 600))
       .process();
 
     should(op)
@@ -23,7 +23,7 @@ describe('Chainable', () => {
     const input = [1, 2, 3, 4];
 
     const op = await Chain(input)
-      .aMap((e) => Promise.resolve(e * 10))
+      .aMap(async (e) => Promise.resolve(e * 10))
       .process();
 
     should(op)
@@ -36,10 +36,10 @@ describe('Chainable', () => {
     const input = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
     const op = await Chain(input)
-      .aMap((e) => Promise.resolve(e * 10))
-      .aFilter((e) => Promise.resolve(e > 30))
-      .aMap((e) => Promise.resolve(e * 10))
-      .aFilter((e) => Promise.resolve(e > 600))
+      .aMap(async (e) => Promise.resolve(e * 10))
+      .aFilter(async (e) => Promise.resolve(e > 30))
+      .aMap(async (e) => Promise.resolve(e * 10))
+      .aFilter(async (e) => Promise.resolve(e > 600))
       .process();
 
     should(op)
@@ -53,10 +53,10 @@ describe('Chainable', () => {
 
     should(
       Chain(input)
-        .aMap((e) => Promise.resolve(e * 10))
-        .aFilter((e) => Promise.resolve(e > 30))
-        .aEvery((e) => Promise.resolve(e > 10))
-        .aFilter((e) => Promise.resolve(e > 30))
+        .aMap(async (e) => Promise.resolve(e * 10))
+        .aFilter(async (e) => Promise.resolve(e > 30))
+        .aEvery(async (e) => Promise.resolve(e > 10))
+        .aFilter(async (e) => Promise.resolve(e > 30))
         .process()
     ).be.rejectedWith('Unable to process, since last input is not an array');
   });
@@ -65,13 +65,13 @@ describe('Chainable', () => {
     const input = [1, 2, 3, 4, 5, 6, 7];
 
     const op = await Chain(input)
-      .aMap((e) => Promise.resolve(e * 10))
-      .aFilter((e) => Promise.resolve(e > 30))
-      .aMap((e) => Promise.resolve(e * 10))
-      .aFilter((e) => Promise.resolve(e > 400))
-      .aMap((e) => Promise.resolve(e * 10))
-      .aFilter((e) => Promise.resolve(e > 5000))
-      .aSome((e) => Promise.resolve(e > 5000))
+      .aMap(async (e) => Promise.resolve(e * 10))
+      .aFilter(async (e) => Promise.resolve(e > 30))
+      .aMap(async (e) => Promise.resolve(e * 10))
+      .aFilter(async (e) => Promise.resolve(e > 400))
+      .aMap(async (e) => Promise.resolve(e * 10))
+      .aFilter(async (e) => Promise.resolve(e > 5000))
+      .aSome(async (e) => Promise.resolve(e > 5000))
       .process();
 
     should(op).be.true();
@@ -82,9 +82,9 @@ describe('Chainable', () => {
       const input = [1, 2, 3, 4];
 
       const op = await Chain(input)
-        .aMap((e) => Promise.resolve(e * 10))
-        .aFilter((e) => Promise.resolve(e > 20))
-        .aEvery((e) => Promise.resolve(e > 10))
+        .aMap(async (e) => Promise.resolve(e * 10))
+        .aFilter(async (e) => Promise.resolve(e > 20))
+        .aEvery(async (e) => Promise.resolve(e > 10))
         .process();
 
       should(op).be.true();
@@ -94,9 +94,9 @@ describe('Chainable', () => {
       const input = [1, 2, 3, 4];
 
       const op = await Chain(input)
-        .aMap((e) => Promise.resolve(e * 10))
-        .aFilter((e) => Promise.resolve(e > 20))
-        .aFind((e) => Promise.resolve(e === 30))
+        .aMap(async (e) => Promise.resolve(e * 10))
+        .aFilter(async (e) => Promise.resolve(e > 20))
+        .aFind(async (e) => Promise.resolve(e === 30))
         .process();
 
       should(op).eql(30);
@@ -106,9 +106,9 @@ describe('Chainable', () => {
       const input = [1, 2, 3, 4, 5];
 
       const op = await Chain(input)
-        .aMap((e) => Promise.resolve(e * 10))
-        .aFilter((e) => Promise.resolve(e > 20))
-        .aFindIndex((e) => Promise.resolve(e === 40))
+        .aMap(async (e) => Promise.resolve(e * 10))
+        .aFilter(async (e) => Promise.resolve(e > 20))
+        .aFindIndex(async (e) => Promise.resolve(e === 40))
         .process();
 
       should(op).eql(1);
@@ -118,8 +118,8 @@ describe('Chainable', () => {
       const input = [1, 2, 3, 4, 5];
 
       const op = await Chain(input)
-        .aMap((e) => Promise.resolve(e * 10))
-        .aFilter((e) => Promise.resolve(e > 10))
+        .aMap(async (e) => Promise.resolve(e * 10))
+        .aFilter(async (e) => Promise.resolve(e > 10))
         .aReduce(async (acc, i) => {
           return acc + (await Promise.resolve(i));
         }, 10)
@@ -132,8 +132,8 @@ describe('Chainable', () => {
       const input = [1, 2, 3, 4, 5];
 
       const op = await Chain(input)
-        .aMap((e) => Promise.resolve(e * 10))
-        .aFilter((e) => Promise.resolve(e > 10))
+        .aMap(async (e) => Promise.resolve(e * 10))
+        .aFilter(async (e) => Promise.resolve(e > 10))
         .aReduce(async (acc, i) => {
           if (!acc) {
             return Promise.resolve(i);
@@ -149,8 +149,8 @@ describe('Chainable', () => {
       const input = [1, 2, 3, 4, 5];
 
       const op = await Chain(input)
-        .aMap((e) => Promise.resolve(e * 10))
-        .aFilter((e) => Promise.resolve(e > 10))
+        .aMap(async (e) => Promise.resolve(e * 10))
+        .aFilter(async (e) => Promise.resolve(e > 10))
         .aReduceRight(async (acc, i) => {
           return acc + (await Promise.resolve(i));
         }, 10)
@@ -163,8 +163,8 @@ describe('Chainable', () => {
       const input = [1, 2, 3, 4, 5];
 
       const op = await Chain(input)
-        .aMap((e) => Promise.resolve(e * 10))
-        .aFilter((e) => Promise.resolve(e > 10))
+        .aMap(async (e) => Promise.resolve(e * 10))
+        .aFilter(async (e) => Promise.resolve(e > 10))
         .aReduceRight(async (acc, i) => {
           if (!acc) {
             return Promise.resolve(i);
@@ -180,9 +180,9 @@ describe('Chainable', () => {
       const input = [1, 2, 3, 4];
 
       const op = await Chain(input)
-        .aMap((e) => Promise.resolve(e * 10))
-        .aFilter((e) => Promise.resolve(e > 20))
-        .aSome((e) => Promise.resolve(e > 10))
+        .aMap(async (e) => Promise.resolve(e * 10))
+        .aFilter(async (e) => Promise.resolve(e > 20))
+        .aSome(async (e) => Promise.resolve(e > 10))
         .process();
 
       should(op).be.true();
