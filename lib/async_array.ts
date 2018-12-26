@@ -14,7 +14,21 @@ export class AsyncArray<T> extends Array<T> {
    * @memberof AsyncArray
    */
   constructor(...args: T[]) {
-    super(...args);
+    /***
+     * Why we need this ?
+     * if we pass one element array with an number as below,
+     * const foo = AsyncArray(...[20]);
+     * Based https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#Syntax
+     * a new Array will be created with 20 empty elements, as below.
+     * [null, null, ...]
+     * In order to avoid that, we need the particular workaround
+     */
+    if (args.length === 1 && typeof args[0] === 'number') {
+      super(1);
+      super[0] = args[0];
+    } else {
+      super(...args);
+    }
   }
 
   /**
@@ -25,7 +39,7 @@ export class AsyncArray<T> extends Array<T> {
    * @memberof AsyncArray
    */
   async aEvery(cb: Methods.CallBackFilter<T>): Promise<boolean> {
-    return Methods.every<T>(this, cb);
+    return Methods.aEvery<T>(this, cb);
   }
 
   /**
@@ -36,7 +50,7 @@ export class AsyncArray<T> extends Array<T> {
    * @memberof AsyncArray
    */
   async aFilter(cb: Methods.CallBackFilter<T>): Promise<AsyncArray<T>> {
-    return new AsyncArray(...(await Methods.filter<T>(this, cb)));
+    return new AsyncArray(...(await Methods.aFilter<T>(this, cb)));
   }
 
   /**
@@ -47,7 +61,7 @@ export class AsyncArray<T> extends Array<T> {
    * @memberof AsyncArray
    */
   async aFind(cb: Methods.CallBackFind<T>): Promise<T | undefined> {
-    return Methods.find<T>(this, cb);
+    return Methods.aFind<T>(this, cb);
   }
 
   /**
@@ -58,7 +72,7 @@ export class AsyncArray<T> extends Array<T> {
    * @memberof AsyncArray
    */
   async aFindIndex(cb: Methods.CallBackFindIndex<T>): Promise<number> {
-    return Methods.findIndex<T>(this, cb);
+    return Methods.aFindIndex<T>(this, cb);
   }
 
   /**
@@ -69,7 +83,7 @@ export class AsyncArray<T> extends Array<T> {
    * @memberof AsyncArray
    */
   async aForEach(cb: Methods.CallBackForEach<T>): Promise<void> {
-    await Methods.forEach<T>(this, cb);
+    await Methods.aForEach<T>(this, cb);
   }
 
   /**
@@ -81,7 +95,7 @@ export class AsyncArray<T> extends Array<T> {
    * @memberof AsyncArray
    */
   async aMap<R>(cb: Methods.CallBackMap<T, R>): Promise<AsyncArray<R>> {
-    return new AsyncArray(...(await Methods.map<T, R>(this, cb)));
+    return new AsyncArray(...(await Methods.aMap<T, R>(this, cb)));
   }
 
   /**
@@ -97,7 +111,7 @@ export class AsyncArray<T> extends Array<T> {
     cb: Methods.CallBackReduce<T, R>,
     initialValue?: R
   ): Promise<T | R> {
-    return Methods.reduce(this, cb, initialValue);
+    return Methods.aReduce(this, cb, initialValue);
   }
 
   /**
@@ -113,7 +127,7 @@ export class AsyncArray<T> extends Array<T> {
     cb: Methods.CallBackReduceRight<T, R>,
     initialValue?: R
   ): Promise<T | R> {
-    return Methods.reduceRight(this, cb, initialValue);
+    return Methods.aReduceRight(this, cb, initialValue);
   }
 
   /**
@@ -124,6 +138,6 @@ export class AsyncArray<T> extends Array<T> {
    * @memberof AsyncArray
    */
   async aSome(cb: Methods.CallBackFilter<T>): Promise<boolean> {
-    return Methods.some<T>(this, cb);
+    return Methods.aSome<T>(this, cb);
   }
 }

@@ -1,5 +1,5 @@
 /** returns any type value */
-export type CallBackReduceRight<T, R> = (
+export type CallBackReduce<T, R> = (
   accumulator: T | R,
   value: T,
   index?: number,
@@ -7,19 +7,19 @@ export type CallBackReduceRight<T, R> = (
 ) => Promise<T | R>;
 
 /**
- * Async ReduceRight function
+ * Async Reduce function
  *
  * @export
  * @template T
  * @template R
  * @param {T[]} elements
- * @param {CallBackReduceRight<T, R>} cb
+ * @param {CallBackReduce<T, R>} cb
  * @param {R} [initialValue]
  * @returns {Promise<T | R>}
  */
-export async function reduceRight<T, R>(
+export async function aReduce<T, R>(
   elements: T[],
-  cb: CallBackReduceRight<T, R>,
+  cb: CallBackReduce<T, R>,
   initialValue?: R
 ): Promise<T | R> {
   if (!elements.length && initialValue === undefined) {
@@ -27,16 +27,16 @@ export async function reduceRight<T, R>(
   }
 
   let reducedValue: T | R;
-  let index = elements.length - 1;
+  let index = 0;
 
   if (initialValue === undefined) {
-    reducedValue = elements[index] as T;
-    index--;
+    reducedValue = elements[0] as T;
+    index++;
   } else {
     reducedValue = initialValue;
   }
 
-  for (; index >= 0; index--) {
+  for (; index < elements.length; index++) {
     reducedValue = await cb(reducedValue, elements[index], index, elements);
   }
 

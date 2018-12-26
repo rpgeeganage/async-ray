@@ -15,7 +15,7 @@ export type CallBackMap<T, R> = (
  * @param {CallBackMap<T, R>} cb
  * @returns {Promise<R[]>}
  */
-export async function map<T, R>(
+export async function aMap<T, R>(
   elements: T[],
   cb: CallBackMap<T, R>
 ): Promise<R[]> {

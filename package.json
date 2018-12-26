@@ -3,7 +3,7 @@
   "description": "Allow perform every, filter, find, findIndex, forEach, map, reduce, reduceRight and some on array using Async callback",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "version": "3.0.1",
+  "version": "3.1.0",
   "scripts": {
     "pretest": "npm run build",
     "test": "nyc mocha",
@@ -51,7 +51,8 @@
     ],
     "reporter": [
       "lcov",
-      "text-summary"
+      "text-summary",
+      "html"
     ],
     "sourceMap": true,
     "instrument": true

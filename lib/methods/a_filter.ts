@@ -1,28 +1,29 @@
 /** returns boolean */
-export type CallBackFind<T> = (
+export type CallBackFilter<T> = (
   value: T,
   index?: number,
   collection?: T[]
 ) => Promise<boolean>;
 
 /**
- * Async Find function
+ * Async Filter function
  *
  * @export
  * @template T
  * @param {T[]} elements
- * @param {CallBackFind<T>} cb
- * @returns {Promise<T | undefined>}
+ * @param {CallBackFilter<T>} cb
+ * @returns {Promise<T[]>}
  */
-export async function find<T>(
+export async function aFilter<T>(
   elements: T[],
-  cb: CallBackFind<T>
-): Promise<T | undefined> {
+  cb: CallBackFilter<T>
+): Promise<T[]> {
+  const filteredResults: T[] = [];
   for (const [index, element] of elements.entries()) {
     if (await cb(element, index, elements)) {
-      return element;
+      filteredResults.push(element);
     }
   }
 
-  return undefined;
+  return filteredResults;
 }

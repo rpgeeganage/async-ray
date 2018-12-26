@@ -14,7 +14,7 @@ export type CallBackEvery<T> = (
  * @param {CallBackEvery<T>} cb
  * @returns {Promise<boolean>}
  */
-export async function every<T>(
+export async function aEvery<T>(
   elements: T[],
   cb: CallBackEvery<T>
 ): Promise<boolean> {

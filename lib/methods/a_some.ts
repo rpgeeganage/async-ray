@@ -1,29 +1,28 @@
 /** returns boolean */
-export type CallBackFilter<T> = (
+export type CallBackSome<T> = (
   value: T,
   index?: number,
   collection?: T[]
 ) => Promise<boolean>;
 
 /**
- * Async Filter function
+ * Async Some function
  *
  * @export
  * @template T
  * @param {T[]} elements
- * @param {CallBackFilter<T>} cb
- * @returns {Promise<T[]>}
+ * @param {CallBackSome<T>} cb
+ * @returns {Promise<boolean>}
  */
-export async function filter<T>(
+export async function aSome<T>(
   elements: T[],
-  cb: CallBackFilter<T>
-): Promise<T[]> {
-  const filteredResults: T[] = [];
+  cb: CallBackSome<T>
+): Promise<boolean> {
   for (const [index, element] of elements.entries()) {
     if (await cb(element, index, elements)) {
-      filteredResults.push(element);
+      return true;
     }
   }
 
-  return filteredResults;
+  return false;
 }

@@ -14,7 +14,7 @@ export type CallBackForEach<T> = (
  * @param {CallBackForEach<T>} cb
  * @returns {Promise<void>}
  */
-export async function forEach<T>(
+export async function aForEach<T>(
   elements: T[],
   cb: CallBackForEach<T>
 ): Promise<void> {
