@@ -15,7 +15,7 @@ Purpose of this package is to provide `async/await` callbacks for `every`, `filt
 ### Content
 * [ ***Basic Usage*** ](#basic-usage)
 * [ ***Supported methods*** ](#supported-methods)
-* [ ***Using methods individually*** ](#using-methods-individuall)
+* [ ***Using methods individually*** ](#using-methods-individually)
 * [ ***Chaining*** ](#chaining)
 
 
