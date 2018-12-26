@@ -2,6 +2,7 @@ import 'mocha';
 import * as should from 'should';
 import { Chain } from '../lib/';
 import { AsyncArray } from '../lib/async_array';
+import { Chainable } from '../lib/chainable';
 
 describe('Chainable', () => {
   it('should handle an empty array', async () => {
@@ -48,19 +49,6 @@ describe('Chainable', () => {
       .containDeepOrdered([700, 800, 900, 1000]);
   });
 
-  it('should not allow to chain if return value is not an array', async () => {
-    const input = [1, 2, 3, 4];
-
-    should(
-      Chain(input)
-        .aMap(async (e) => Promise.resolve(e * 10))
-        .aFilter(async (e) => Promise.resolve(e > 30))
-        .aEvery(async (e) => Promise.resolve(e > 10))
-        .aFilter(async (e) => Promise.resolve(e > 30))
-        .process()
-    ).be.rejectedWith('Unable to process, since last input is not an array');
-  });
-
   it('should throw and halt execution in case of error during the process', async () => {
     const input = [1, 2, 3, 4];
 
@@ -78,7 +66,7 @@ describe('Chainable', () => {
     ).be.rejectedWith('This is an error');
   });
 
-  it('should allow to chain if return value is not an array in last call', async () => {
+  it('should execute chaining process, if none chainable method was added', async () => {
     const input = [1, 2, 3, 4, 5, 6, 7];
 
     const op = await Chain(input)
@@ -88,21 +76,64 @@ describe('Chainable', () => {
       .aFilter(async (e) => Promise.resolve(e > 400))
       .aMap(async (e) => Promise.resolve(e * 10))
       .aFilter(async (e) => Promise.resolve(e > 5000))
-      .aSome(async (e) => Promise.resolve(e > 5000))
-      .process();
+      .aSome(async (e) => Promise.resolve(e > 5000));
 
     should(op).be.true();
   });
 
-  describe('Chain methods', () => {
+  describe('Chainable methods', () => {
+    it('aFilter', async () => {
+      const input = [100, 200, 300];
+      const op = await Chain(input)
+        .aFilter(async (e) => Promise.resolve(e > 100))
+        .aFilter(async (e) => Promise.resolve(e > 200))
+        .process();
+
+      should(op)
+        .instanceOf(AsyncArray)
+        .instanceOf(Array)
+        .containDeepOrdered([300]);
+    });
+
+    it('aMap', async () => {
+      const input = [1, 2, 3];
+      const op = await Chain(input)
+        .aMap(async (e) => Promise.resolve(e * 10))
+        .aMap(async (e) => Promise.resolve(e * 10))
+        .process();
+
+      should(op)
+        .instanceOf(AsyncArray)
+        .instanceOf(Array)
+        .containDeepOrdered([100, 200, 300]);
+    });
+
+    it('Chainable methods has to call process methods to get the value', async () => {
+      const input = [1, 2, 3];
+      const op = await Chain(input)
+        .aMap(async (e) => Promise.resolve(e * 10))
+        .aFilter(async (e) => Promise.resolve(e > 10));
+
+      should(op).instanceOf(Chainable);
+    });
+  });
+
+  describe('Methods', () => {
+    it('can be used without any chainable method', async () => {
+      const input = [1, 2, 3, 4];
+
+      const op = await Chain(input).aSome(async (e) => Promise.resolve(e > 1));
+
+      should(op).be.true();
+    });
+
     it('aEvery', async () => {
       const input = [1, 2, 3, 4];
 
       const op = await Chain(input)
         .aMap(async (e) => Promise.resolve(e * 10))
         .aFilter(async (e) => Promise.resolve(e > 20))
-        .aEvery(async (e) => Promise.resolve(e > 10))
-        .process();
+        .aEvery(async (e) => Promise.resolve(e > 10));
 
       should(op).be.true();
     });
@@ -113,8 +144,7 @@ describe('Chainable', () => {
       const op = await Chain(input)
         .aMap(async (e) => Promise.resolve(e * 10))
         .aFilter(async (e) => Promise.resolve(e > 20))
-        .aFind(async (e) => Promise.resolve(e === 30))
-        .process();
+        .aFind(async (e) => Promise.resolve(e === 30));
 
       should(op).eql(30);
     });
@@ -125,10 +155,23 @@ describe('Chainable', () => {
       const op = await Chain(input)
         .aMap(async (e) => Promise.resolve(e * 10))
         .aFilter(async (e) => Promise.resolve(e > 20))
-        .aFindIndex(async (e) => Promise.resolve(e === 40))
-        .process();
+        .aFindIndex(async (e) => Promise.resolve(e === 40));
 
       should(op).eql(1);
+    });
+
+    it('aForEach', async () => {
+      const input = [1, 2, 3, 4, 5];
+      const op: number[] = [];
+      await Chain(input)
+        .aMap(async (e) => Promise.resolve(e * 10))
+        .aFilter(async (e) => Promise.resolve(e > 20))
+        .aForEach(async (e) => {
+          const element = await Promise.resolve(e);
+          op.push(element);
+        });
+
+      should(op).containDeepOrdered([30, 40, 50]);
     });
 
     it('aReduce with initial value', async () => {
@@ -139,8 +182,7 @@ describe('Chainable', () => {
         .aFilter(async (e) => Promise.resolve(e > 10))
         .aReduce(async (acc, i) => {
           return acc + (await Promise.resolve(i));
-        }, 10)
-        .process();
+        }, 10);
 
       should(op).eql(150);
     });
@@ -156,8 +198,7 @@ describe('Chainable', () => {
             return Promise.resolve(i);
           }
           return (acc as number) + (await Promise.resolve(i));
-        })
-        .process();
+        });
 
       should(op).eql(140);
     });
@@ -170,8 +211,7 @@ describe('Chainable', () => {
         .aFilter(async (e) => Promise.resolve(e > 10))
         .aReduceRight(async (acc, i) => {
           return acc + (await Promise.resolve(i));
-        }, 10)
-        .process();
+        }, 10);
 
       should(op).eql(150);
     });
@@ -187,8 +227,7 @@ describe('Chainable', () => {
             return Promise.resolve(i);
           }
           return (acc as number) + (await Promise.resolve(i));
-        })
-        .process();
+        });
 
       should(op).eql(140);
     });
@@ -199,8 +238,7 @@ describe('Chainable', () => {
       const op = await Chain(input)
         .aMap(async (e) => Promise.resolve(e * 10))
         .aFilter(async (e) => Promise.resolve(e > 20))
-        .aSome(async (e) => Promise.resolve(e > 10))
-        .process();
+        .aSome(async (e) => Promise.resolve(e > 10));
 
       should(op).be.true();
     });

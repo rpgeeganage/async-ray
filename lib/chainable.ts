@@ -50,13 +50,11 @@ export class Chainable<T> {
    * aEvery method of Async-Ray lib
    *
    * @param {methods.CallBackEvery<T>} cb
-   * @returns {Chainable<T>}
+   * @returns {Promise<any>}
    * @memberof Chainable
    */
-  aEvery(cb: methods.CallBackEvery<T>): Chainable<T> {
-    this.add(methods.aEvery, cb);
-
-    return this;
+  aEvery(cb: methods.CallBackEvery<T>): Promise<any> {
+    return this.addNoneChainableMethod(methods.aEvery, cb);
   }
 
   /**
@@ -66,36 +64,42 @@ export class Chainable<T> {
    * @returns {Chainable<T>}
    * @memberof Chainable
    */
+
   aFilter(cb: methods.CallBackFilter<T>): Chainable<T> {
-    this.add(methods.aFilter, cb);
-
-    return this;
-  }
-
-  /**
-   * aFind method of Async-Ray lib
-   *
-   * @param {methods.CallBackFind<T>} cb
-   * @returns {Chainable<T>}
-   * @memberof Chainable
-   */
-  aFind(cb: methods.CallBackFind<T>): Chainable<T> {
-    this.add(methods.aFind, cb);
-
-    return this;
+    return this.addChainableMethod(methods.aFilter, cb);
   }
 
   /**
    * aFindIndex method of Async-Ray lib
    *
    * @param {methods.CallBackFindIndex<T>} cb
-   * @returns {Chainable<T>}
+   * @returns {Promise<any>}
    * @memberof Chainable
    */
-  aFindIndex(cb: methods.CallBackFindIndex<T>): Chainable<T> {
-    this.add(methods.aFindIndex, cb);
+  aFindIndex(cb: methods.CallBackFindIndex<T>): Promise<any> {
+    return this.addNoneChainableMethod(methods.aFindIndex, cb);
+  }
 
-    return this;
+  /**
+   * aFind method of Async-Ray lib
+   *
+   * @param {methods.CallBackFind<T>} cb
+   * @returns {Promise<any>}
+   * @memberof Chainable
+   */
+  aFind(cb: methods.CallBackFind<T>): Promise<any> {
+    return this.addNoneChainableMethod(methods.aFind, cb);
+  }
+
+  /**
+   * aForEach method of Async-Ray lib
+   *
+   * @param {methods.CallBackForEach<T>} cb
+   * @returns {Promise<any>}
+   * @memberof Chainable
+   */
+  aForEach(cb: methods.CallBackForEach<T>): Promise<any> {
+    return this.addNoneChainableMethod(methods.aForEach, cb);
   }
 
   /**
@@ -107,23 +111,7 @@ export class Chainable<T> {
    * @memberof Chainable
    */
   aMap<R>(cb: methods.CallBackMap<T, R>): Chainable<T> {
-    this.add(methods.aMap, cb);
-
-    return this;
-  }
-
-  /**
-   * aReduce method of Async-Ray lib
-   *
-   * @template R
-   * @param {methods.CallBackReduce<T, R>} cb
-   * @returns {Chainable<T>}
-   * @memberof Chainable
-   */
-  aReduce<R>(cb: methods.CallBackReduce<T, R>, initialValue?: R): Chainable<T> {
-    this.add(methods.aReduce, cb, initialValue);
-
-    return this;
+    return this.addChainableMethod(methods.aMap, cb);
   }
 
   /**
@@ -131,16 +119,28 @@ export class Chainable<T> {
    *
    * @template R
    * @param {methods.CallBackReduceRight<T, R>} cb
-   * @returns {Chainable<T>}
+   * @param {R} [initialValue]
+   * @returns {Promise<any>}
    * @memberof Chainable
    */
   aReduceRight<R>(
     cb: methods.CallBackReduceRight<T, R>,
     initialValue?: R
-  ): Chainable<T> {
-    this.add(methods.aReduceRight, cb, initialValue);
+  ): Promise<any> {
+    return this.addNoneChainableMethod(methods.aReduceRight, cb, initialValue);
+  }
 
-    return this;
+  /**
+   * aReduce method of Async-Ray lib
+   *
+   * @template R
+   * @param {methods.CallBackReduce<T, R>} cb
+   * @param {R} [initialValue]
+   * @returns {Promise<any>}
+   * @memberof Chainable
+   */
+  aReduce<R>(cb: methods.CallBackReduce<T, R>, initialValue?: R): Promise<any> {
+    return this.addNoneChainableMethod(methods.aReduce, cb, initialValue);
   }
 
   /**
@@ -148,13 +148,11 @@ export class Chainable<T> {
    *
    * @template R
    * @param {methods.CallBackSome<T>} cb
-   * @returns {Chainable<T>}
+   * @returns {Promise<any>}
    * @memberof Chainable
    */
-  aSome<R>(cb: methods.CallBackSome<T>): Chainable<T> {
-    this.add(methods.aSome, cb);
-
-    return this;
+  aSome<R>(cb: methods.CallBackSome<T>): Promise<any> {
+    return this.addNoneChainableMethod(methods.aSome, cb);
   }
 
   /**
@@ -167,12 +165,6 @@ export class Chainable<T> {
     let currentInput = this.input;
     while (this.callQueue.length) {
       try {
-        if (!Array.isArray(currentInput)) {
-          throw new Error(
-            'Unable to process, since last input is not an array'
-          );
-        }
-
         const nextCall = this.callQueue.shift() as SingleCall;
         currentInput = await nextCall.method.call(
           null,
@@ -192,6 +184,46 @@ export class Chainable<T> {
     }
 
     return currentInput;
+  }
+
+  /**
+   * Add chainable method to the call queue
+   *
+   * @private
+   * @param {Function} method
+   * @param {CallBacks} callBack
+   * @param {*} [additional]
+   * @returns {Chainable<T>}
+   * @memberof Chainable
+   */
+  private addChainableMethod(
+    method: Function,
+    callBack: CallBacks,
+    additional?: any
+  ): Chainable<T> {
+    this.add(method, callBack, additional);
+
+    return this;
+  }
+
+  /**
+   * Add none chainable method to the queue and execute the chaining process
+   *
+   * @private
+   * @param {Function} method
+   * @param {CallBacks} callBack
+   * @param {*} [additional]
+   * @returns {Promise<any>}
+   * @memberof Chainable
+   */
+  private addNoneChainableMethod(
+    method: Function,
+    callBack: CallBacks,
+    additional?: any
+  ): Promise<any> {
+    this.add(method, callBack, additional);
+
+    return this.process();
   }
 
   /**
