@@ -44,7 +44,7 @@ describe('Testing individual methods', () => {
   it('forEach', async () => {
     const response: number[] = [];
     await aForEach([1, 2, 3], async (e) => {
-      const op = await await Promise.resolve(e * 10);
+      const op = await Promise.resolve(e * 10);
       response.push(op);
     });
     should(response).be.eql([10, 20, 30]);

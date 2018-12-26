@@ -64,7 +64,6 @@ export class Chainable<T> {
    * @returns {Chainable<T>}
    * @memberof Chainable
    */
-
   aFilter(cb: methods.CallBackFilter<T>): Chainable<T> {
     return this.addChainableMethod(methods.aFilter, cb);
   }

@@ -1,4 +1,6 @@
 # Async-Ray
+[![License](https://img.shields.io/npm/l/async-ray.svg)](https://img.shields.io/npm/l/async-ray.svg)
+[![Version](https://img.shields.io/npm/v/async-ray.svg)](https://img.shields.io/npm/v/async-ray.svg)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/rpgeeganage/async-ray.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/rpgeeganage/async-ray/context:javascript)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/967e339f9fdb4424a48ba37a0292f221)](https://app.codacy.com/app/rpgeeganage/async-ray?utm_source=github.com&utm_medium=referral&utm_content=rpgeeganage/async-ray&utm_campaign=Badge_Grade_Settings)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/3e1503ed17af4dc5aadb1fbbc41191d3)](https://www.codacy.com/app/rpgeeganage/async-ray?utm_source=github.com&utm_medium=referral&utm_content=rpgeeganage/async-ray&utm_campaign=Badge_Coverage)
@@ -9,6 +11,13 @@
 Purpose of this package is to provide `async/await` callbacks for `every`, `filter`, `find`, `findIndex`, `forEach`, `map`, `reduce`, `reduceRight` and `some` methods in **_Array_**.
 
 ### TypeScript Doc: [https://rpgeeganage.github.io/async-ray/doc/](https://rpgeeganage.github.io/async-ray/doc/)
+
+### Content
+* [ ***Basic Usage*** ](#basic-usage)
+* [ ***Supported methods*** ](#supported-methods)
+* [ ***Using methods individually*** ](#using-methods-individuall)
+* [ ***Chaining*** ](#chaining)
+
 
 ## Basic usage
 
@@ -27,7 +36,6 @@ const { AsyncRay } = require('async-ray');
 * [ ***.aReduceRight*** ](#areduceright)
 * [ ***.aSome*** ](#asome)
 
-## Methods
 ### .aEvery
 
 ##### .aEvery(async callback(element[, index[, array]]))
@@ -231,74 +239,103 @@ const output = await AsyncRay(inputArray).aSome(
 console.log(output);
 // Output is true
 ```
+## Using methods individually
+You can use each method without creating ```AsyncRay ``` object.
+```js
+import { aEvery, aFilter, aFind, aFindIndex, aForEach, aMap, aReduce, aReduceRight, aSome } from 'async-ray';
 
+const everyResult = await aEvery([1, 2, 3], async (e) => Promise.resolve(e > 0));
+const filterResult = await aFilter([1, 2, 3], async (e) => Promise.resolve(e > 1));
+const findResult = await aFind([1, 2, 3], async (e) => Promise.resolve(e === 3));
+const findIndexResult = await aFindIndex([1, 2, 3], async (e) => Promise.resolve(e === 2));
+
+const forEachResult: number[] = [];
+await aForEach([1, 2, 3], async (e) => {
+    const op = await Promise.resolve(e * 10);
+	forEachResult.push(op);
+});
+
+const mapResult = await aMap([1, 2, 3], async (e) => Promise.resolve(e * 10));
+const reduceResult = await aReduce([1, 2, 3], async (acc, e) => Promise.resolve(e + acc), 0);
+const reduceRightResult = await aReduceRight([1, 2, 3], async (acc, e) => Promise.resolve(e + acc), 0);
+const someResult = await aSome([1, 2, 3], async (e) => Promise.resolve(e > 1));
+```
 ## Chaining
 
-## Between AsyncRay methods
-
-### **Only** `.aFilter` and `.aMap` may be chained together.
-
-Make sure to put before each AsyncRay method call an `await` (or call `.then(...)`) since a Promise is returned by the async methods.
-
-#### sample
+### Async-Ray methods can be chained using ```Chain``` functionality
+### Basic usage
 ```js
-await(await AsyncRay([1,2,3])
-    .aFilter(...))
-    .Map(...)
+const { Chain } = require('async-ray');
 ```
 
-
-## Between other [Array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#) methods
-
-`.aEvery`, `.aFilter`, `.aFind`,`.aFindIndex`, `.aForEach`, `.aMap`, `aReduce`, `aReduceRight` and  `.aSome` can be chained with other [Array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#).
-
-#### sample 1 - `aMap` and `filter`
-
+#### sample 1 - `aMap()` and `aFilter()`
+---
+The `process()` method  __***must be called explicitly***__ to process the chain because `aMap()` and `aFilter()` method returns an array.
 ```js
-async function dummy(ele) {
-  return Promise.resolve(ele);
-}
+const input = [1, 2, 3];
 
-const inputArray = [1, 2, 3, 4];
+const op = await Chain(input)
+  .aMap(async (e) => Promise.resolve(e * 10))
+  .aFilter(async (e) => Promise.resolve(e > 10))
+  .aMap(async (e) => Promise.resolve(e * 10))
+  // Call the process() method to execute the chain
+  .process();
 
-const chainedValue = (await AsyncRay(inputArray).aMap(
-  async (ele) => await dummy(ele * 10)
-)).filter((ele) => ele > 20);
+console.log('Output is ', op);
+// Output is [ 200, 300 ]
+```
+#### sample 2 - `aMap()`, `aFilter()` and `aFind()`
+---
+The `process()` method  __***not be called***__ to because `aFind()` does not return an array.
+```js
+const input = [1, 2, 3];
 
-console.log('Output is ', chainedValue);
-// Output is [30, 40]
+const op = await Chain(input)
+	.aMap(async (e) => Promise.resolve(e * 10))
+	.aFilter(async (e) => Promise.resolve(e > 10))
+	.aMap(async (e) => Promise.resolve(e * 10))
+	.aFind(async (e) => Promise.resolve(e === 300));
+	// No need to call process() method
+
+console.log('Output is ', op);
+// Output is 300
 ```
 
-#### sample 2 - `aMap` and `find`
+#### Between other [Array methods](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#) methods
 
+---
+
+#### Sample 1 - Async-Ray `Chain` with `filter()`
 ```js
-async function dummy(ele) {
-  return Promise.resolve(ele);
-}
+const input = [1, 2, 3];
 
-const inputArray = [1, 2, 3, 4];
+const op = (
+	await Chain(input)
+  		.aMap(async (e) => Promise.resolve(e * 10))
+		.aFilter(async (e) => Promise.resolve(e > 10))
+		.aMap(async (e) => Promise.resolve(e * 10))
+		.process()
+)
+.filter(e => e > 200)
 
-const chainedValue = (await AsyncRay(inputArray).aMap(
-  async (ele) => await dummy(ele * 10)
-)).find((ele) => ele === 20);
-
-console.log('Output is ', chainedValue);
-// Output is 20
+console.log('Output is ', op);
+// Output is [ 300 ]
 ```
+---
 
-#### sample 3 - `aMap` and `reduce`
-
+#### Sample 2 - Async-Ray `Chain` with `find()`
 ```js
-async function dummy(ele) {
-  return Promise.resolve(ele);
-}
+const input = [1, 2, 3];
 
-const inputArray = [1, 2, 3, 4];
+const op = (
+	await Chain(input)
+  		.aMap(async (e) => Promise.resolve(e * 10))
+		.aFilter(async (e) => Promise.resolve(e > 10))
+		.aMap(async (e) => Promise.resolve(e * 10))
+		.process()
+)
+.find(e => e === 200)
 
-const chainedValue = (await AsyncRay(inputArray).aMap(
-  async (ele) => await dummy(ele * 10)
-)).reduce((acc, ele) => acc + ele), 1);
-
-console.log('Output is ', chainedValue);
-// Output is 101
+console.log('Output is ', op);
+// Output is 200
 ```
