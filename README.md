@@ -18,7 +18,6 @@ Purpose of this package is to provide `async/await` callbacks for `every`, `filt
 * [ ***Using methods individually*** ](#using-methods-individually)
 * [ ***Chaining*** ](#chaining)
 
-
 ## Basic usage
 
 ```js
