@@ -267,6 +267,10 @@ const someResult = await aSome([1, 2, 3], async (e) => Promise.resolve(e > 1));
 ```js
 const { Chain } = require('async-ray');
 ```
+---
+***Chaining will return an instance of Async-Ray if returned type is an array.***
+
+---
 
 #### sample 1 - `aMap()` and `aFilter()`
 ---
