@@ -242,23 +242,70 @@ console.log(output);
 ## Using methods individually
 You can use each method without creating ```AsyncRay ``` object.
 ```js
-import { aEvery, aFilter, aFind, aFindIndex, aForEach, aMap, aReduce, aReduceRight, aSome } from 'async-ray';
+import {
+  aEvery, aFilter, aFind, aFindIndex,
+  aForEach, aMap, aReduce, aReduceRight, aSome
+} from 'async-ray';
 
-const everyResult = await aEvery([1, 2, 3], async (e) => Promise.resolve(e > 0));
-const filterResult = await aFilter([1, 2, 3], async (e) => Promise.resolve(e > 1));
-const findResult = await aFind([1, 2, 3], async (e) => Promise.resolve(e === 3));
-const findIndexResult = await aFindIndex([1, 2, 3], async (e) => Promise.resolve(e === 2));
+// aEvery
+const everyResult = await aEvery(
+  [1, 2, 3],
+  async (e) => Promise.resolve(e > 0)
+);
 
+// aFilter
+const filterResult = await aFilter(
+  [1, 2, 3],
+  async (e) => Promise.resolve(e > 1)
+);
+
+// aFind
+const findResult = await aFind(
+  [1, 2, 3],
+  async (e) => Promise.resolve(e === 3)
+);
+
+// aFindIndex
+const findIndexResult = await aFindIndex(
+  [1, 2, 3],
+  async (e) => Promise.resolve(e === 2)
+);
+
+// aForEach
 const forEachResult: number[] = [];
-await aForEach([1, 2, 3], async (e) => {
+await aForEach(
+  [1, 2, 3],
+  async (e) => {
     const op = await Promise.resolve(e * 10);
-	forEachResult.push(op);
-});
+	  forEachResult.push(op);
+  }
+);
 
-const mapResult = await aMap([1, 2, 3], async (e) => Promise.resolve(e * 10));
-const reduceResult = await aReduce([1, 2, 3], async (acc, e) => Promise.resolve(e + acc), 0);
-const reduceRightResult = await aReduceRight([1, 2, 3], async (acc, e) => Promise.resolve(e + acc), 0);
-const someResult = await aSome([1, 2, 3], async (e) => Promise.resolve(e > 1));
+// aMap
+const mapResult = await aMap(
+  [1, 2, 3],
+  async (e) => Promise.resolve(e * 10)
+);
+
+// aReduce
+const reduceResult = await aReduce(
+  [1, 2, 3],
+  async (acc, e) => Promise.resolve(e + acc),
+  0
+);
+
+// aReduceRight
+const reduceRightResult = await aReduceRight(
+  [1, 2, 3],
+  async (acc, e) => Promise.resolve(e + acc),
+  0
+);
+
+// aSome
+const someResult = await aSome(
+  [1, 2, 3],
+  async (e) => Promise.resolve(e > 1)
+);
 ```
 ## Chaining
 
@@ -279,9 +326,15 @@ The `process()` method  __***must be called explicitly***__ to process the chain
 const input = [1, 2, 3];
 
 const op = await Chain(input)
-  .aMap(async (e) => Promise.resolve(e * 10))
-  .aFilter(async (e) => Promise.resolve(e > 10))
-  .aMap(async (e) => Promise.resolve(e * 10))
+  .aMap(
+    async (e) => Promise.resolve(e * 10)
+  )
+  .aFilter(
+    async (e) => Promise.resolve(e > 10)
+  )
+  .aMap(
+    async (e) => Promise.resolve(e * 10)
+  )
   // Call the process() method to execute the chain
   .process();
 
@@ -295,10 +348,18 @@ The `process()` method  __***not be called***__ to because `aFind()` does not re
 const input = [1, 2, 3];
 
 const op = await Chain(input)
-	.aMap(async (e) => Promise.resolve(e * 10))
-	.aFilter(async (e) => Promise.resolve(e > 10))
-	.aMap(async (e) => Promise.resolve(e * 10))
-	.aFind(async (e) => Promise.resolve(e === 300));
+  .aMap(
+    async (e) => Promise.resolve(e * 10)
+  )
+  .aFilter(
+    async (e) => Promise.resolve(e > 10)
+  )
+  .aMap(
+    async (e) => Promise.resolve(e * 10)
+  )
+  .aFind(
+    async (e) => Promise.resolve(e === 300)
+  );
 	// No need to call process() method
 
 console.log('Output is ', op);
@@ -314,11 +375,17 @@ console.log('Output is ', op);
 const input = [1, 2, 3];
 
 const op = (
-	await Chain(input)
-  		.aMap(async (e) => Promise.resolve(e * 10))
-		.aFilter(async (e) => Promise.resolve(e > 10))
-		.aMap(async (e) => Promise.resolve(e * 10))
-		.process()
+  await Chain(input)
+    .aMap(
+      async (e) => Promise.resolve(e * 10)
+    )
+    .aFilter(
+      async (e) => Promise.resolve(e > 10)
+    )
+    .aMap(
+      async (e) => Promise.resolve(e * 10)
+    )
+    .process()
 )
 .filter(e => e > 200)
 
@@ -332,11 +399,17 @@ console.log('Output is ', op);
 const input = [1, 2, 3];
 
 const op = (
-	await Chain(input)
-  		.aMap(async (e) => Promise.resolve(e * 10))
-		.aFilter(async (e) => Promise.resolve(e > 10))
-		.aMap(async (e) => Promise.resolve(e * 10))
-		.process()
+    await Chain(input)
+    .aMap(
+      async (e) => Promise.resolve(e * 10)
+    )
+    .aFilter(
+      async (e) => Promise.resolve(e > 10)
+    )
+    .aMap(
+      async (e) => Promise.resolve(e * 10)
+    )
+    .process()
 )
 .find(e => e === 200)
 
