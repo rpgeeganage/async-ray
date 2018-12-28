@@ -342,7 +342,7 @@ console.log('Output is ', op);
 ```
 #### sample 2 - `aMap()`, `aFilter()` and `aFind()`
 ---
-The `process()` method  __***not be called***__ to because `aFind()` does not return an array.
+The `process()` method  __***should not be called***__ because `aFind()` does not return an array.
 ```js
 const input = [1, 2, 3];
 
