@@ -16,12 +16,14 @@
     "preversion": "npm run lint",
     "version": "npm run format && git add -A lib",
     "postversion": "git push && git push --tags",
-    "doc-gen": "typedoc --out doc --theme minimal `find test -name '*.ts' -not -path '*test*' -not -path '*dist*'`"
+    "doc-gen": "typedoc --out doc --theme minimal `find test -name '*.ts' -not -path '*test*' -not -path '*dist*'`",
+    "sample": "ts-node examples/chain_sample_1.ts && ts-node examples/chain_sample_2.ts"
   },
   "author": "Ruwan Geeganage",
   "license": "MIT",
   "devDependencies": {
     "@types/mocha": "^5.2.5",
+    "axios": "^0.18.0",
     "codacy-coverage": "^3.3.0",
     "mocha": "^5.2.0",
     "nyc": "^13.1.0",
