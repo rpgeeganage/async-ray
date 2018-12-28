@@ -915,8 +915,23 @@ img { max-width: 100%; }
 	<div class="content-wrap">
 		<div class="tsd-panel tsd-typography">
 			<h1 id="async-ray">Async-Ray</h1>
+			<p><a href="https://img.shields.io/npm/l/async-ray.svg"><img src="https://img.shields.io/npm/l/async-ray.svg" alt="License"></a>
+				<a href="https://img.shields.io/npm/v/async-ray.svg"><img src="https://img.shields.io/npm/v/async-ray.svg" alt="Version"></a>
+				<a href="https://lgtm.com/projects/g/rpgeeganage/async-ray/context:javascript"><img src="https://img.shields.io/lgtm/grade/javascript/g/rpgeeganage/async-ray.svg?logo=lgtm&logoWidth=18" alt="Language grade: JavaScript"></a>
+				<a href="https://app.codacy.com/app/rpgeeganage/async-ray?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rpgeeganage/async-ray&amp;utm_campaign=Badge_Grade_Settings"><img src="https://api.codacy.com/project/badge/Grade/967e339f9fdb4424a48ba37a0292f221" alt="Codacy Badge"></a>
+				<a href="https://www.codacy.com/app/rpgeeganage/async-ray?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rpgeeganage/async-ray&amp;utm_campaign=Badge_Coverage"><img src="https://api.codacy.com/project/badge/Coverage/3e1503ed17af4dc5aadb1fbbc41191d3" alt="Codacy Badge"></a>
+				<a href="https://travis-ci.org/rpgeeganage/async-ray"><img src="https://travis-ci.org/rpgeeganage/async-ray.svg?branch=master" alt="Build Status"></a>
+				<a href="https://snyk.io/test/github/rpgeeganage/async-ray?targetFile=package.json"><img src="https://snyk.io/test/github/rpgeeganage/async-ray/badge.svg?targetFile=package.json" alt="Known Vulnerabilities"></a>
+			<a href="https://codeclimate.com/github/rpgeeganage/async-ray/maintainability"><img src="https://api.codeclimate.com/v1/badges/4c9603df3595612def57/maintainability" alt="Maintainability"></a></p>
 			<p>Purpose of this package is to provide <code>async/await</code> callbacks for <code>every</code>, <code>filter</code>, <code>find</code>, <code>findIndex</code>, <code>forEach</code>, <code>map</code>, <code>reduce</code>, <code>reduceRight</code> and <code>some</code> methods in <strong><em>Array</em></strong>.</p>
 			<h3 id="typescript-doc-https-rpgeeganage-github-io-async-ray-doc-">TypeScript Doc: <a href="https://rpgeeganage.github.io/async-ray/doc/">https://rpgeeganage.github.io/async-ray/doc/</a></h3>
+			<h3 id="content">Content</h3>
+			<ul>
+				<li><a href="#basic-usage"> <strong><em>Basic Usage</em></strong> </a></li>
+				<li><a href="#supported-methods"> <strong><em>Supported methods</em></strong> </a></li>
+				<li><a href="#using-methods-individually"> <strong><em>Using methods individually</em></strong> </a></li>
+				<li><a href="#chaining"> <strong><em>Chaining</em></strong> </a></li>
+			</ul>
 			<h2 id="basic-usage">Basic usage</h2>
 			<pre><code class="language-js"><span class="hljs-keyword">const</span> { AsyncRay } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'async-ray'</span>);</code></pre>
 			<h2 id="supported-methods">Supported methods</h2>
@@ -931,7 +946,6 @@ img { max-width: 100%; }
 				<li><a href="#areduceright"> <strong><em>.aReduceRight</em></strong> </a></li>
 				<li><a href="#asome"> <strong><em>.aSome</em></strong> </a></li>
 			</ul>
-			<h2 id="methods">Methods</h2>
 			<h3 id="-aevery">.aEvery</h3>
 			<h5 id="-aevery-async-callback-element-index-array-">.aEvery(async callback(element[, index[, array]]))</h5>
 			<pre><code class="language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dummy</span>(<span class="hljs-params">element, needle</span>) </span>{
@@ -1091,55 +1105,164 @@ img { max-width: 100%; }
 
 <span class="hljs-built_in">console</span>.log(output);
 <span class="hljs-comment">// Output is true</span></code></pre>
+			<h2 id="using-methods-individually">Using methods individually</h2>
+			<p>You can use each method without creating <code>AsyncRay</code> object.</p>
+			<pre><code class="language-js"><span class="hljs-keyword">import</span> {
+  aEvery, aFilter, aFind, aFindIndex,
+  aForEach, aMap, aReduce, aReduceRight, aSome
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'async-ray'</span>;
+
+<span class="hljs-comment">// aEvery</span>
+<span class="hljs-keyword">const</span> everyResult = <span class="hljs-keyword">await</span> aEvery(
+  [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
+  <span class="hljs-keyword">async</span> (e) =&gt; <span class="hljs-built_in">Promise</span>.resolve(e &gt; <span class="hljs-number">0</span>)
+);
+
+<span class="hljs-comment">// aFilter</span>
+<span class="hljs-keyword">const</span> filterResult = <span class="hljs-keyword">await</span> aFilter(
+  [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
+  <span class="hljs-keyword">async</span> (e) =&gt; <span class="hljs-built_in">Promise</span>.resolve(e &gt; <span class="hljs-number">1</span>)
+);
+
+<span class="hljs-comment">// aFind</span>
+<span class="hljs-keyword">const</span> findResult = <span class="hljs-keyword">await</span> aFind(
+  [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
+  <span class="hljs-keyword">async</span> (e) =&gt; <span class="hljs-built_in">Promise</span>.resolve(e === <span class="hljs-number">3</span>)
+);
+
+<span class="hljs-comment">// aFindIndex</span>
+<span class="hljs-keyword">const</span> findIndexResult = <span class="hljs-keyword">await</span> aFindIndex(
+  [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
+  <span class="hljs-keyword">async</span> (e) =&gt; <span class="hljs-built_in">Promise</span>.resolve(e === <span class="hljs-number">2</span>)
+);
+
+<span class="hljs-comment">// aForEach</span>
+<span class="hljs-keyword">const</span> forEachResult: number[] = [];
+<span class="hljs-keyword">await</span> aForEach(
+  [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
+  <span class="hljs-keyword">async</span> (e) =&gt; {
+    <span class="hljs-keyword">const</span> op = <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.resolve(e * <span class="hljs-number">10</span>);
+      forEachResult.push(op);
+  }
+);
+
+<span class="hljs-comment">// aMap</span>
+<span class="hljs-keyword">const</span> mapResult = <span class="hljs-keyword">await</span> aMap(
+  [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
+  <span class="hljs-keyword">async</span> (e) =&gt; <span class="hljs-built_in">Promise</span>.resolve(e * <span class="hljs-number">10</span>)
+);
+
+<span class="hljs-comment">// aReduce</span>
+<span class="hljs-keyword">const</span> reduceResult = <span class="hljs-keyword">await</span> aReduce(
+  [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
+  <span class="hljs-keyword">async</span> (acc, e) =&gt; <span class="hljs-built_in">Promise</span>.resolve(e + acc),
+  <span class="hljs-number">0</span>
+);
+
+<span class="hljs-comment">// aReduceRight</span>
+<span class="hljs-keyword">const</span> reduceRightResult = <span class="hljs-keyword">await</span> aReduceRight(
+  [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
+  <span class="hljs-keyword">async</span> (acc, e) =&gt; <span class="hljs-built_in">Promise</span>.resolve(e + acc),
+  <span class="hljs-number">0</span>
+);
+
+<span class="hljs-comment">// aSome</span>
+<span class="hljs-keyword">const</span> someResult = <span class="hljs-keyword">await</span> aSome(
+  [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>],
+  <span class="hljs-keyword">async</span> (e) =&gt; <span class="hljs-built_in">Promise</span>.resolve(e &gt; <span class="hljs-number">1</span>)
+);</code></pre>
 			<h2 id="chaining">Chaining</h2>
-			<h2 id="between-asyncray-methods">Between AsyncRay methods</h2>
-			<h3 id="only-afilter-and-amap-may-be-chained-together-"><strong>Only</strong> <code>.aFilter</code> and <code>.aMap</code> may be chained together.</h3>
-			<p>Make sure to put before each AsyncRay method call an <code>await</code> (or call <code>.then(...)</code>) since a Promise is returned by the async methods.</p>
-			<h4 id="sample">sample</h4>
-			<pre><code class="language-js"><span class="hljs-keyword">await</span>(<span class="hljs-keyword">await</span> AsyncRay([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>])
-    .aFilter(...))
-    .Map(...)</code></pre>
-			<h2 id="between-other-array-methods-methods">Between other <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#">Array methods</a> methods</h2>
-			<p><code>.aEvery</code>, <code>.aFilter</code>, <code>.aFind</code>,<code>.aFindIndex</code>, <code>.aForEach</code>, <code>.aMap</code>, <code>aReduce</code>, <code>aReduceRight</code> and  <code>.aSome</code> can be chained with other <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#">Array methods</a>.</p>
-			<h4 id="sample-1-amap-and-filter">sample 1 - <code>aMap</code> and <code>filter</code></h4>
-			<pre><code class="language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dummy</span>(<span class="hljs-params">ele</span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(ele);
-}
+			<h3 id="async-ray-methods-can-be-chained-using-chain-functionality">Async-Ray methods can be chained using <code>Chain</code> functionality</h3>
+			<h3 id="basic-usage">Basic usage</h3>
+			<pre><code class="language-js"><span class="hljs-keyword">const</span> { Chain } = <span class="hljs-built_in">require</span>(<span class="hljs-string">'async-ray'</span>);</code></pre>
+			<hr>
+			<p><strong><em>Chaining will return an instance of Async-Ray if returned type is an array.</em></strong></p>
+			<hr>
+			<h4 id="sample-1-amap-and-afilter-">sample 1 - <code>aMap()</code> and <code>aFilter()</code></h4>
+			<hr>
+			<p>The <code>process()</code> method  <strong><strong><em>must be called explicitly</em></strong></strong> to process the chain because <code>aMap()</code> and <code>aFilter()</code> method returns an array.</p>
+			<pre><code class="language-js"><span class="hljs-keyword">const</span> input = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
 
-<span class="hljs-keyword">const</span> inputArray = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+<span class="hljs-keyword">const</span> op = <span class="hljs-keyword">await</span> Chain(input)
+  .aMap(
+    <span class="hljs-keyword">async</span> (e) =&gt; <span class="hljs-built_in">Promise</span>.resolve(e * <span class="hljs-number">10</span>)
+  )
+  .aFilter(
+    <span class="hljs-keyword">async</span> (e) =&gt; <span class="hljs-built_in">Promise</span>.resolve(e &gt; <span class="hljs-number">10</span>)
+  )
+  .aMap(
+    <span class="hljs-keyword">async</span> (e) =&gt; <span class="hljs-built_in">Promise</span>.resolve(e * <span class="hljs-number">10</span>)
+  )
+  <span class="hljs-comment">// Call the process() method to execute the chain</span>
+  .process();
 
-<span class="hljs-keyword">const</span> chainedValue = (<span class="hljs-keyword">await</span> AsyncRay(inputArray).aMap(
-  <span class="hljs-keyword">async</span> (ele) =&gt; <span class="hljs-keyword">await</span> dummy(ele * <span class="hljs-number">10</span>)
-)).filter(<span class="hljs-function">(<span class="hljs-params">ele</span>) =&gt;</span> ele &gt; <span class="hljs-number">20</span>);
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Output is '</span>, op);
+<span class="hljs-comment">// Output is [ 200, 300 ]</span></code></pre>
+			<h4 id="sample-2-amap-afilter-and-afind-">sample 2 - <code>aMap()</code>, <code>aFilter()</code> and <code>aFind()</code></h4>
+			<hr>
+			<p>The <code>process()</code> method  <strong><strong><em>should not be called</em></strong></strong> because <code>aFind()</code> does not return an array.</p>
+			<pre><code class="language-js"><span class="hljs-keyword">const</span> input = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
 
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Output is '</span>, chainedValue);
-<span class="hljs-comment">// Output is [30, 40]</span></code></pre>
-			<h4 id="sample-2-amap-and-find">sample 2 - <code>aMap</code> and <code>find</code></h4>
-			<pre><code class="language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dummy</span>(<span class="hljs-params">ele</span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(ele);
-}
+<span class="hljs-keyword">const</span> op = <span class="hljs-keyword">await</span> Chain(input)
+  .aMap(
+    <span class="hljs-keyword">async</span> (e) =&gt; <span class="hljs-built_in">Promise</span>.resolve(e * <span class="hljs-number">10</span>)
+  )
+  .aFilter(
+    <span class="hljs-keyword">async</span> (e) =&gt; <span class="hljs-built_in">Promise</span>.resolve(e &gt; <span class="hljs-number">10</span>)
+  )
+  .aMap(
+    <span class="hljs-keyword">async</span> (e) =&gt; <span class="hljs-built_in">Promise</span>.resolve(e * <span class="hljs-number">10</span>)
+  )
+  .aFind(
+    <span class="hljs-keyword">async</span> (e) =&gt; <span class="hljs-built_in">Promise</span>.resolve(e === <span class="hljs-number">300</span>)
+  );
+  <span class="hljs-comment">// No need to call process() method</span>
 
-<span class="hljs-keyword">const</span> inputArray = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Output is '</span>, op);
+<span class="hljs-comment">// Output is 300</span></code></pre>
+			<h4 id="between-other-array-methods-methods">Between other <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#">Array methods</a> methods</h4>
+			<hr>
+			<h4 id="sample-1-async-ray-chain-with-filter-">Sample 1 - Async-Ray <code>Chain</code> with <code>filter()</code></h4>
+			<pre><code class="language-js"><span class="hljs-keyword">const</span> input = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
 
-<span class="hljs-keyword">const</span> chainedValue = (<span class="hljs-keyword">await</span> AsyncRay(inputArray).aMap(
-  <span class="hljs-keyword">async</span> (ele) =&gt; <span class="hljs-keyword">await</span> dummy(ele * <span class="hljs-number">10</span>)
-)).find(<span class="hljs-function">(<span class="hljs-params">ele</span>) =&gt;</span> ele === <span class="hljs-number">20</span>);
+<span class="hljs-keyword">const</span> op = (
+  <span class="hljs-keyword">await</span> Chain(input)
+    .aMap(
+      <span class="hljs-keyword">async</span> (e) =&gt; <span class="hljs-built_in">Promise</span>.resolve(e * <span class="hljs-number">10</span>)
+    )
+    .aFilter(
+      <span class="hljs-keyword">async</span> (e) =&gt; <span class="hljs-built_in">Promise</span>.resolve(e &gt; <span class="hljs-number">10</span>)
+    )
+    .aMap(
+      <span class="hljs-keyword">async</span> (e) =&gt; <span class="hljs-built_in">Promise</span>.resolve(e * <span class="hljs-number">10</span>)
+    )
+    .process()
+)
+.filter(<span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> e &gt; <span class="hljs-number">200</span>)
 
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Output is '</span>, chainedValue);
-<span class="hljs-comment">// Output is 20</span></code></pre>
-			<h4 id="sample-3-amap-and-reduce">sample 3 - <code>aMap</code> and <code>reduce</code></h4>
-			<pre><code class="language-js"><span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">dummy</span>(<span class="hljs-params">ele</span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(ele);
-}
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Output is '</span>, op);
+<span class="hljs-comment">// Output is [ 300 ]</span></code></pre>
+			<hr>
+			<h4 id="sample-2-async-ray-chain-with-find-">Sample 2 - Async-Ray <code>Chain</code> with <code>find()</code></h4>
+			<pre><code class="language-js"><span class="hljs-keyword">const</span> input = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
 
-<span class="hljs-keyword">const</span> inputArray = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];
+<span class="hljs-keyword">const</span> op = (
+    <span class="hljs-keyword">await</span> Chain(input)
+    .aMap(
+      <span class="hljs-keyword">async</span> (e) =&gt; <span class="hljs-built_in">Promise</span>.resolve(e * <span class="hljs-number">10</span>)
+    )
+    .aFilter(
+      <span class="hljs-keyword">async</span> (e) =&gt; <span class="hljs-built_in">Promise</span>.resolve(e &gt; <span class="hljs-number">10</span>)
+    )
+    .aMap(
+      <span class="hljs-keyword">async</span> (e) =&gt; <span class="hljs-built_in">Promise</span>.resolve(e * <span class="hljs-number">10</span>)
+    )
+    .process()
+)
+.find(<span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> e === <span class="hljs-number">200</span>)
 
-<span class="hljs-keyword">const</span> chainedValue = (<span class="hljs-keyword">await</span> AsyncRay(inputArray).aMap(
-  <span class="hljs-keyword">async</span> (ele) =&gt; <span class="hljs-keyword">await</span> dummy(ele * <span class="hljs-number">10</span>)
-)).reduce(<span class="hljs-function">(<span class="hljs-params">acc, ele</span>) =&gt;</span> acc + ele), <span class="hljs-number">1</span>);
-
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Output is '</span>, chainedValue);
-<span class="hljs-comment">// Output is 101</span></code></pre>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'Output is '</span>, op);
+<span class="hljs-comment">// Output is 200</span></code></pre>
 		</div>
 		<section class="tsd-panel-group tsd-index-group">
 			<h2>Index</h2>
@@ -1148,18 +1271,19 @@ img { max-width: 100%; }
 					<section class="tsd-index-section ">
 						<h3>External modules</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-external-module"><a href="modules/_async_ray_.html" class="tsd-kind-icon">"async_<wbr>ray"</a></li>
+							<li class="tsd-kind-external-module"><a href="modules/_async_array_.html" class="tsd-kind-icon">"async_<wbr>array"</a></li>
+							<li class="tsd-kind-external-module"><a href="modules/_chainable_.html" class="tsd-kind-icon">"chainable"</a></li>
 							<li class="tsd-kind-external-module"><a href="modules/_index_.html" class="tsd-kind-icon">"index"</a></li>
-							<li class="tsd-kind-external-module"><a href="modules/_methods_every_.html" class="tsd-kind-icon">"methods/every"</a></li>
-							<li class="tsd-kind-external-module"><a href="modules/_methods_filter_.html" class="tsd-kind-icon">"methods/filter"</a></li>
-							<li class="tsd-kind-external-module"><a href="modules/_methods_find_.html" class="tsd-kind-icon">"methods/find"</a></li>
-							<li class="tsd-kind-external-module"><a href="modules/_methods_find_index_.html" class="tsd-kind-icon">"methods/find_<wbr>index"</a></li>
-							<li class="tsd-kind-external-module"><a href="modules/_methods_foreach_.html" class="tsd-kind-icon">"methods/foreach"</a></li>
+							<li class="tsd-kind-external-module"><a href="modules/_methods_a_every_.html" class="tsd-kind-icon">"methods/a_<wbr>every"</a></li>
+							<li class="tsd-kind-external-module"><a href="modules/_methods_a_filter_.html" class="tsd-kind-icon">"methods/a_<wbr>filter"</a></li>
+							<li class="tsd-kind-external-module"><a href="modules/_methods_a_find_.html" class="tsd-kind-icon">"methods/a_<wbr>find"</a></li>
+							<li class="tsd-kind-external-module"><a href="modules/_methods_a_find_index_.html" class="tsd-kind-icon">"methods/a_<wbr>find_<wbr>index"</a></li>
+							<li class="tsd-kind-external-module"><a href="modules/_methods_a_foreach_.html" class="tsd-kind-icon">"methods/a_<wbr>foreach"</a></li>
+							<li class="tsd-kind-external-module"><a href="modules/_methods_a_map_.html" class="tsd-kind-icon">"methods/a_<wbr>map"</a></li>
+							<li class="tsd-kind-external-module"><a href="modules/_methods_a_reduce_.html" class="tsd-kind-icon">"methods/a_<wbr>reduce"</a></li>
+							<li class="tsd-kind-external-module"><a href="modules/_methods_a_reduce_right_.html" class="tsd-kind-icon">"methods/a_<wbr>reduce_<wbr>right"</a></li>
+							<li class="tsd-kind-external-module"><a href="modules/_methods_a_some_.html" class="tsd-kind-icon">"methods/a_<wbr>some"</a></li>
 							<li class="tsd-kind-external-module"><a href="modules/_methods_index_.html" class="tsd-kind-icon">"methods/index"</a></li>
-							<li class="tsd-kind-external-module"><a href="modules/_methods_map_.html" class="tsd-kind-icon">"methods/map"</a></li>
-							<li class="tsd-kind-external-module"><a href="modules/_methods_reduce_.html" class="tsd-kind-icon">"methods/reduce"</a></li>
-							<li class="tsd-kind-external-module"><a href="modules/_methods_reduce_right_.html" class="tsd-kind-icon">"methods/reduce_<wbr>right"</a></li>
-							<li class="tsd-kind-external-module"><a href="modules/_methods_some_.html" class="tsd-kind-icon">"methods/some"</a></li>
 						</ul>
 					</section>
 				</div>
