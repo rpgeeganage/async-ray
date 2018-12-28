@@ -319,6 +319,7 @@ const { Chain } = require('async-ray');
 ---
 
 #### sample 1 - `aMap()` and `aFilter()`
+##### ([sample code](https://github.com/rpgeeganage/async-ray/blob/master/examples/chain_sample_1.ts))
 ---
 The `process()` method  __***must be called explicitly***__ to process the chain because `aMap()` and `aFilter()` method returns an array.
 ```js
@@ -341,6 +342,7 @@ console.log('Output is ', op);
 // Output is [ 200, 300 ]
 ```
 #### sample 2 - `aMap()`, `aFilter()` and `aFind()`
+##### ([sample code](https://github.com/rpgeeganage/async-ray/blob/master/examples/chain_sample_2.ts))
 ---
 The `process()` method  __***should not be called***__ because `aFind()` does not return an array.
 ```js
