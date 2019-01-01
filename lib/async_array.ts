@@ -43,6 +43,21 @@ export class AsyncArray<T> extends Array<T> {
   }
 
   /**
+   * Async Every Limit method
+   *
+   * @param {Methods.CallBackFilter<T>} cb
+   * @param {number} limit
+   * @returns {Promise<boolean>}
+   * @memberof AsyncArray
+   */
+  async aEveryLimit(
+    cb: Methods.CallBackFilter<T>,
+    limit: number
+  ): Promise<boolean> {
+    return Methods.aEveryLimit<T>(this, cb, limit);
+  }
+
+  /**
    * Async Filter method
    *
    * @param {Methods.CallBackFilter<T>} cb
@@ -54,7 +69,22 @@ export class AsyncArray<T> extends Array<T> {
   }
 
   /**
-   * Async find method
+   * Async Filter Limit method
+   *
+   * @param {Methods.CallBackFilter<T>} cb
+   * @param {number} limit
+   * @returns {Promise<T[]>}
+   * @memberof AsyncArray
+   */
+  async aFilterLimit(
+    cb: Methods.CallBackFilter<T>,
+    limit: number
+  ): Promise<AsyncArray<T>> {
+    return new AsyncArray(...(await Methods.aFilterLimit<T>(this, cb, limit)));
+  }
+
+  /**
+   * Async Find method
    *
    * @param {Methods.CallBackFind<T>} cb
    * @returns {Promise<T | undefined>}
@@ -62,6 +92,21 @@ export class AsyncArray<T> extends Array<T> {
    */
   async aFind(cb: Methods.CallBackFind<T>): Promise<T | undefined> {
     return Methods.aFind<T>(this, cb);
+  }
+
+  /**
+   * Async Find Limit method
+   *
+   * @param {Methods.CallBackFind<T>} cb
+   * @param {number} limit
+   * @returns {Promise<T | undefined>}
+   * @memberof AsyncArray
+   */
+  async aFindLimit(
+    cb: Methods.CallBackFind<T>,
+    limit: number
+  ): Promise<T | undefined> {
+    return Methods.aFindLimit<T>(this, cb, limit);
   }
 
   /**
@@ -76,6 +121,21 @@ export class AsyncArray<T> extends Array<T> {
   }
 
   /**
+   * Async FindIndex Limit method
+   *
+   * @param {Methods.CallBackFindIndex<T>} cb
+   * @param {number} limit
+   * @returns {Promise<number>}
+   * @memberof AsyncArray
+   */
+  async aFindIndexLimit(
+    cb: Methods.CallBackFindIndex<T>,
+    limit: number
+  ): Promise<number> {
+    return Methods.aFindIndexLimit<T>(this, cb, limit);
+  }
+
+  /**
    * Async ForEach method
    *
    * @param {Methods.CallBackForEach<T>} cb
@@ -84,6 +144,21 @@ export class AsyncArray<T> extends Array<T> {
    */
   async aForEach(cb: Methods.CallBackForEach<T>): Promise<void> {
     await Methods.aForEach<T>(this, cb);
+  }
+
+  /**
+   * Async ForEach method
+   *
+   * @param {Methods.CallBackForEach<T>} cb
+   * @param {number} limit
+   * @returns {Promise<void>}
+   * @memberof AsyncArray
+   */
+  async aForEachLimit(
+    cb: Methods.CallBackForEach<T>,
+    limit: number
+  ): Promise<void> {
+    await Methods.aForEachLimit<T>(this, cb, limit);
   }
 
   /**
@@ -96,6 +171,22 @@ export class AsyncArray<T> extends Array<T> {
    */
   async aMap<R>(cb: Methods.CallBackMap<T, R>): Promise<AsyncArray<R>> {
     return new AsyncArray(...(await Methods.aMap<T, R>(this, cb)));
+  }
+
+  /**
+   * Async Map Limit method
+   *
+   * @template R
+   * @param {Methods.CallBackMap<T, R>} cb
+   * @param {number} limit
+   * @returns {Promise<R[]>}
+   * @memberof AsyncArray
+   */
+  async aMapLimit<R>(
+    cb: Methods.CallBackMap<T, R>,
+    limit: number
+  ): Promise<AsyncArray<R>> {
+    return new AsyncArray(...(await Methods.aMapLimit<T, R>(this, cb, limit)));
   }
 
   /**
@@ -139,5 +230,20 @@ export class AsyncArray<T> extends Array<T> {
    */
   async aSome(cb: Methods.CallBackFilter<T>): Promise<boolean> {
     return Methods.aSome<T>(this, cb);
+  }
+
+  /**
+   * Async Some Limit method
+   *
+   * @param {Methods.CallBackFilter<T>} cb
+   * @param {number} limit
+   * @returns {Promise<boolean>}
+   * @memberof AsyncArray
+   */
+  async aSomeLimit(
+    cb: Methods.CallBackFilter<T>,
+    limit: number
+  ): Promise<boolean> {
+    return Methods.aSomeLimit<T>(this, cb, limit);
   }
 }

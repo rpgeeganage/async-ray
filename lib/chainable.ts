@@ -58,6 +58,21 @@ export class Chainable<T> {
   }
 
   /**
+   * aEveryLimit method of Async-Ray lib
+   *
+   * @param {methods.CallBackEvery<T>} cb
+   * @param {number} limit
+   * @returns {Promise<any>}
+   * @memberof Chainable
+   */
+  aEveryLimit(
+    cb: methods.CallBackEvery<T>,
+    limit: number
+  ): Promise<any> {
+    return this.addNoneChainableMethod(methods.aEveryLimit, cb, limit);
+  }
+
+  /**
    * aFilter method of Async-Ray lib
    *
    * @param {methods.CallBackFilter<T>} cb
@@ -66,6 +81,18 @@ export class Chainable<T> {
    */
   aFilter(cb: methods.CallBackFilter<T>): Chainable<T> {
     return this.addChainableMethod(methods.aFilter, cb);
+  }
+
+  /**
+   * aFilterLimit method of Async-Ray lib
+   *
+   * @param {methods.CallBackFilter<T>} cb
+   * @param {number} limit
+   * @returns {Chainable<T>}
+   * @memberof Chainable
+   */
+  aFilterLimit(cb: methods.CallBackFilter<T>, limit: number): Chainable<T> {
+    return this.addChainableMethod(methods.aFilterLimit, cb, limit);
   }
 
   /**
@@ -80,6 +107,18 @@ export class Chainable<T> {
   }
 
   /**
+   * aFindIndexLimit method of Async-Ray lib
+   *
+   * @param {methods.CallBackFindIndex<T>} cb
+   * @param {number} limit
+   * @returns {Promise<any>}
+   * @memberof Chainable
+   */
+  aFindIndexLimit(cb: methods.CallBackFindIndex<T>, limit: number): Promise<any> {
+    return this.addNoneChainableMethod(methods.aFindIndexLimit, cb, limit);
+  }
+
+  /**
    * aFind method of Async-Ray lib
    *
    * @param {methods.CallBackFind<T>} cb
@@ -88,6 +127,18 @@ export class Chainable<T> {
    */
   aFind(cb: methods.CallBackFind<T>): Promise<any> {
     return this.addNoneChainableMethod(methods.aFind, cb);
+  }
+
+  /**
+   * aFindLimit method of Async-Ray lib
+   *
+   * @param {methods.CallBackFind<T>} cb
+   * @param {number} limit
+   * @returns {Promise<any>}
+   * @memberof Chainable
+   */
+  aFindLimit(cb: methods.CallBackFind<T>, limit: number): Promise<any> {
+    return this.addNoneChainableMethod(methods.aFindLimit, cb, limit);
   }
 
   /**
@@ -102,6 +153,18 @@ export class Chainable<T> {
   }
 
   /**
+   * aForEachLimit method of Async-Ray lib
+   *
+   * @param {methods.CallBackForEach<T>} cb
+   * @param {number} limit
+   * @returns {Promise<any>}
+   * @memberof Chainable
+   */
+  aForEachLimit(cb: methods.CallBackForEach<T>, limit: number): Promise<any> {
+    return this.addNoneChainableMethod(methods.aForEachLimit, cb, limit);
+  }
+
+  /**
    * aMap method of Async-Ray lib
    *
    * @template R
@@ -111,6 +174,19 @@ export class Chainable<T> {
    */
   aMap<R>(cb: methods.CallBackMap<T, R>): Chainable<T> {
     return this.addChainableMethod(methods.aMap, cb);
+  }
+
+  /**
+   * aMapLimit method of Async-Ray lib
+   *
+   * @template R
+   * @param {methods.CallBackMap<T, R>} cb
+   * @param {number} limit
+   * @returns {Chainable<T>}
+   * @memberof Chainable
+   */
+  aMapLimit<R>(cb: methods.CallBackMap<T, R>, limit: number): Chainable<T> {
+    return this.addChainableMethod(methods.aMapLimit, cb, limit);
   }
 
   /**
@@ -152,6 +228,19 @@ export class Chainable<T> {
    */
   aSome<R>(cb: methods.CallBackSome<T>): Promise<any> {
     return this.addNoneChainableMethod(methods.aSome, cb);
+  }
+
+  /**
+   * aSome method of Async-Ray lib
+   *
+   * @template R
+   * @param {methods.CallBackSome<T>} cb
+   * @param {number} limit
+   * @returns {Promise<any>}
+   * @memberof Chainable
+   */
+  aSomeLimit<R>(cb: methods.CallBackSome<T>, limit: number): Promise<any> {
+    return this.addNoneChainableMethod(methods.aSomeLimit, cb, limit);
   }
 
   /**
