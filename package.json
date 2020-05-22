@@ -3,7 +3,7 @@
   "description": "Allow perform every, filter, find, findIndex, forEach, map, reduce, reduceRight and some on array using Async callback",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "scripts": {
     "pretest": "npm run build",
     "test": "nyc mocha",
@@ -25,15 +25,15 @@
     "@types/mocha": "^5.2.5",
     "axios": "^0.18.0",
     "codacy-coverage": "^3.3.0",
-    "mocha": "^5.2.0",
-    "nyc": "^13.1.0",
+    "mocha": "^7.1.2",
+    "nyc": "^15.0.1",
     "prettier": "^1.14.3",
     "should": "^13.2.3",
     "source-map-support": "^0.5.9",
     "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
-    "typescript": "^3.0.3"
+    "typescript": "^3.8.3"
   },
   "repository": {
     "type": "git",

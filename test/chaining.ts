@@ -22,12 +22,9 @@ describe('Chaining', () => {
   });
 
   it('aMap() and aFilter()', async () => {
-    const outputArray =
-      await(await AsyncRay(inputArray)
-        .aMap(async (i) =>
-          dummyAsync(i)))
-        .aFilter(async (i) =>
-          dummyAsyncCond(!!i))
+    const outputArray = await (await AsyncRay(inputArray).aMap(async (i) =>
+      dummyAsync(i)
+    )).aFilter(async (i) => dummyAsyncCond(!!i));
 
     should(outputArray).instanceOf(AsyncArray);
   });

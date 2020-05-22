@@ -9,7 +9,8 @@ type CallBacks =
   | methods.CallBackMap<any, any>
   | methods.CallBackReduce<any, any>
   | methods.CallBackReduceRight<any, any>
-  | methods.CallBackSome<any>;
+  | methods.CallBackSome<any>
+  | methods.CallBackFlatMap<any, any>;
 
 /**
  * Interface for the single entry for the call stack
@@ -152,6 +153,18 @@ export class Chainable<T> {
    */
   aSome<R>(cb: methods.CallBackSome<T>): Promise<any> {
     return this.addNoneChainableMethod(methods.aSome, cb);
+  }
+
+  /**
+   * aFlatMap method of Async-Ray lib
+   *
+   * @template R
+   * @param {CallBackFlatMap<T, R>} cb
+   * @returns {Chainable<T>}
+   * @memberof Chainable
+   */
+  aFlatMap<R>(cb: methods.CallBackFlatMap<T, R>): Chainable<T> {
+    return this.addChainableMethod(methods.aFlatMap, cb);
   }
 
   /**

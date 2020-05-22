@@ -43,6 +43,18 @@ export class AsyncArray<T> extends Array<T> {
   }
 
   /**
+   * Async FlatMap method
+   *
+   * @template R
+   * @param {Methods.CallBackFlatMap<T, R>} cb
+   * @returns {Promise<R[]>}
+   * @memberof AsyncArray
+   */
+  async aFlatMap<R>(cb: Methods.CallBackFlatMap<T, R>): Promise<AsyncArray<R>> {
+    return new AsyncArray(...(await Methods.aFlatMap<T, R>(this, cb)));
+  }
+
+  /**
    * Async Filter method
    *
    * @param {Methods.CallBackFilter<T>} cb

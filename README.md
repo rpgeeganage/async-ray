@@ -29,6 +29,7 @@ const { AsyncRay } = require('async-ray');
 * [ ***.aFilter*** ](#afilter)
 * [ ***.aFind*** ](#afind)
 * [ ***.aFindIndex*** ](#afindindex)
+* [ ***.aFlatMap*** ](#aflatMap)
 * [ ***.aForEach*** ](#aforeach)
 * [ ***.aMap*** ](#amap)
 * [ ***.aReduce*** ](#areduce)
@@ -126,6 +127,28 @@ const outputIndex = await AsyncRay(inputArray).aFindIndex(
 
 console.log('Output is ', outputIndex);
 // Output is 1
+```
+
+### .aFlatMap
+
+##### .aFlatMap(async callback(element[, index[, array]]))
+
+```js
+async function dummy(element) {
+  return Promise.resolve([element, element * 2]);
+}
+
+const inputArray = [1, 2, 3, 4];
+
+// Call Map method
+const flatMappedArray = await AsyncRay(inputArray).aFlatMap(
+  async (i, index, collection) => {
+    // Dummy async function
+    return await dummy(i);
+  }
+);
+console.log(flatMappedArray);
+// Output is [1, 2, 2, 4, 3, 6, 4, 8]
 ```
 
 ### .aForEach
