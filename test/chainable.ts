@@ -95,6 +95,20 @@ describe('Chainable', () => {
         .containDeepOrdered([300]);
     });
 
+    it('aFlatMap', async () => {
+      const input = [1, 2, 3, 4, 5];
+
+      const op = await Chain(input)
+        .aFlatMap(async (e) => Promise.resolve([e, e * 2]))
+        .aMap(async (e) => Promise.resolve(e * 2))
+        .process();
+
+      should(op)
+        .instanceOf(AsyncArray)
+        .instanceOf(Array)
+        .containDeepOrdered([2, 4, 4, 8, 6, 12, 8, 16, 10, 20]);
+    });
+
     it('aMap', async () => {
       const input = [1, 2, 3];
       const op = await Chain(input)

@@ -8,7 +8,7 @@ import { Chain } from '../lib';
 
 const api = 'http://api.mathjs.org';
 
-async function sample2(array: number[]): Promise<number|undefined> {
+async function sample2(array: number[]): Promise<number | undefined> {
   return Chain(array)
     .aMap(async (e) => (await axios.get(`${api}/v4/?expr=10*${e}`)).data)
     .aMap(async (e) => (await axios.get(`${api}/v4/?expr=10*${e}`)).data)

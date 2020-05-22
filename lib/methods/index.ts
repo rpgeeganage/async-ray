@@ -1,4 +1,5 @@
 export * from './a_every';
+export * from './a_flat_map';
 export * from './a_filter';
 export * from './a_find';
 export * from './a_find_index';
